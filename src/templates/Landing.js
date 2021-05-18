@@ -1,5 +1,6 @@
 import React from "react"
 import {Head, useRouteData} from "react-static"
+import {Link} from "react-router-dom"
 
 import Shell from "../components/Shell"
 import colors from "utils/colors"
@@ -11,6 +12,11 @@ import books from "../images/emoji/books.png";
 import writingHand from "../images/emoji/writing-hand.png";
 import hangLoose from "../images/emoji/hang-loose.png";
 import speechBubble from "../images/speech-bubble.svg";
+import clojureLogo from "../images/clojure-logo.svg";
+import ethLogo from "../images/ethereum.svg";
+import batShield from "../images/bat-shield.png";
+import jarvis from "../images/jarvis.png";
+import rightArrowDoodle from "../images/icons/right-arrow-doodle.png";
 import hatMan from "../images/hat-man.svg";
 
 const Block = ({backgroundColor, heading, headingColor, headingEmoji, children, childrenContainerClass}) => {
@@ -18,8 +24,8 @@ const Block = ({backgroundColor, heading, headingColor, headingEmoji, children, 
 			   borderRadius: 16}}
 		   className="lh-copy tc w-90 w-80-m w-60-ns center pv4 mt4">
 	    <div className="flex justify-center items-center">
-	      <h1 className="f1 georgia" style={{color: headingColor}}>{heading}</h1>
-	      <img src={headingEmoji} loading="lazy" className="h3 pl3" />
+	      <h1 className="f3 f3-m f1-l georgia" style={{color: headingColor}}>{heading}</h1>
+	      <img src={headingEmoji} loading="lazy" className="h2 h3-l pl1 pl3-l" />
 	    </div>
 	    <div className={`w-70 center f4 ${childrenContainerClass}`}>
 	      {children}
@@ -27,11 +33,7 @@ const Block = ({backgroundColor, heading, headingColor, headingEmoji, children, 
 	  </section>)
 }
 
-const PostStack = ({post}) =>
-      (<div>
-       </div>)
-
-const ThankYouInternet = () =>
+const ThankYouInternet = ({post}) =>
       (<Block heading={"Thank you internet"}
 	      headingEmoji={blackHeart}
 	      backgroundColor="#FFE6E6">
@@ -39,9 +41,34 @@ const ThankYouInternet = () =>
 	   The world is full of good people who freely share their knowledge and know how.
 	 </p>
 	 <p>
-	   We are grateful to the open-source movement that taught us how to build systems at scale. And we are grateful to countless invisible individuals who published their work in the form of docs, articles, videos and tutorials for us to learn. Krim is our way to give back. Krim is how we close the loop.
+	   We are grateful to the open-source movement that taught us how to build systems at scale. And we are grateful to countless invisible individuals who published their work in the form of docs, articles, videos and tutorials for us to learn. Krim is our way to give back. <span className="b">Krim is how we close the loop</span>.
 	 </p>
+	 <div className="w-100 w-90-m w-80-l center nb5 mt3 mt5-l">
+	   <PostCard post={post} leftTopTitle="Latest Post" stacked={true}/>
+	 </div>
        </Block>)
+
+const techWeLove = [{
+  icon: clojureLogo,
+  label: "Clojure"
+}, {
+  icon: ethLogo,
+  label: "Crypto"
+}, {
+  icon: batShield,
+  label: "Privacy"
+}, {
+  icon: jarvis,
+  label: "UX"
+}]
+
+const TechCard = ({icon, label, href}) =>
+      (<div className="black-80 bg-white br4 pa3 f5 b mt3 link pointer"
+	    style={{minWidth: 100,
+		    boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)"}}>
+	 <img src={icon} className="h2" />
+	 <div>{label}</div>
+       </div>)
 
 const ClosingTheLoop = () =>
       (<Block heading={"Closing the loop"}
@@ -53,24 +80,53 @@ const ClosingTheLoop = () =>
 	 <p>
 	   Over 1200 people follow Krim Labs and its author Shivek Khurana on various social platforms and email lists. Our research and publications have reached over 1 million readers over the past 4 years. We care the most about:
 	 </p>
+	 <div className="flex justify-between w-100 w-90-m w-80-l flex-wrap mt4 center">
+	   {techWeLove.map(t => <TechCard key={t.label} {...t} />)}
+	 </div>
        </Block>)
 
-const RecentPosts = () =>
+const TextWithRightArrowDoodle = ({text}) =>
+      (<div className="flex justify-center items-center">
+	 {text}
+	 <img src={rightArrowDoodle} className="h2 pl3"/>
+       </div>)
+
+const RecentPosts = ({posts, tags}) =>
       (<Block heading={"Recent Posts"}
 	      headingEmoji={writingHand}
-	      backgroundColor="#FFEEE6">
+	      backgroundColor="#FFEEE6"
+       >
+	 <div className="flex flex-wrap justify-between black-60 nt3 mb5 f6 f6-m f4-l">
+	   {tags.map(t => <Link to="/" className="underline dib">#{t}</Link>)}
+	 </div>
+	 <div className="w-100 w-80-m w70-l center">
+	   {posts.map((p, i) =>
+	     <div key={p.data.slug} className="mt4">
+	       <PostCard post={p} />
+	     </div>)}
+	 </div>
+	 <Link to="/blog" className="f3 b underline dib mt5 mb3">
+	   <TextWithRightArrowDoodle text="View all posts" />
+	 </Link>
        </Block>)
 
 const HatManSpeaks = ({text}) =>
       (<div className="flex justify-center">
 	 <img src={hatMan} alt="Man wearing a hat" className="mt4" />
-	 <div className="bg-left white pv5 ph4 w-20"
+	 <div className="bg-left white pv5 ph4 w-80 w-60-m w-20-l"
 	      style={{backgroundImage: `url(${speechBubble})`,
 		      transform: "rotate(-2deg)"}}
 	 >
 	   {text}
 	 </div>
        </div>)
+
+const LearnMoreButton = () =>
+      (<Link to="/tinycanva" className="bg-white black f3 b br2 pv2 ph3 link mt5 dib"
+	     style={{boxShadow: "0 0 4px 2px rgba(255, 255, 255, 0.4)"}}
+       >
+	 Learn more
+       </Link>)
 
 const ClojureCourse = () =>
       (<Block heading={"Clojure Course"}
@@ -82,9 +138,38 @@ const ClojureCourse = () =>
 	   Clojure is a functional hosted LISP known for its expressiveness. But since it’s not widely used, documented or advocated for, we decided to make a course about it. <span className="b">This course is a distilled form of our Clojure journey over the years.</span>
 	 </p>
 	 <p>
-	   Focused at React.js developers, this course starts from setting up the editor and walks through building a Canva like graphics editor. Complete with authentication, state management, routing and API integration.
+	   Focused at React.js developers, this course starts from setting up the editor and walks through building a Canva like graphics editor. Complete with authentication, state management, routing and API integration, for <span className="b">$49</span> only.
 	 </p>
+	 <LearnMoreButton />
+	 <Link to="/blog" className="f5 underline db mt3">
+	   <TextWithRightArrowDoodle text="or try the first module for free" />
+	 </Link>
        </Block>)
+
+
+const Form = () =>
+      (<form className="measure center tl">
+	 <div className="w-100 w-80-m w-60-l mt5 bn center">
+	   <div className="mt3">
+             <label className="db fw6 lh-copy f6" htmlFor="firstName">First Name</label>
+             <input className="b pa2 input-reset ba bg-white br2 hover-bg-black hover-white w-100"
+		    type="text" id="firstName" />
+	   </div>
+	   <div className="mt3">
+             <label className="db fw6 lh-copy f6" htmlFor="emailAddress">Email</label>
+             <input className="pa2 input-reset ba bg-white br2 hover-bg-black hover-white w-100"
+		    type="email" id="emailAddress" />
+	   </div>
+	 </div>
+	 <div className="tc">
+	   <button className="bg-black white f4 b br2 mt4 pv2 ph3 shadow-1 bn">
+	     Send me your articles
+	   </button>
+	 </div>
+	 <Link to="/blog" className="f5 underline db mt2">
+	   <TextWithRightArrowDoodle text="learn how we manage your data" />
+	 </Link>
+       </form>)
 
 const Subscribe = () =>
       (<Block heading={"Subscribe"}
@@ -93,6 +178,7 @@ const Subscribe = () =>
 	 <p>
 	   Join 346 other readers to get latest articles about Clojure, Crypto, privacy and UX delivered straight to your inbox. Free forever. <span className="b">Unsubscribe anytime</span>.
 	 </p>
+	 <Form />
        </Block>)
 
 const Letter = ({className}) => {
@@ -129,25 +215,16 @@ const Landing = () => {
   const {latestPosts, featuredPosts} = useRouteData();
   return (<Shell>
    	    <SEO />
-	    <ThankYouInternet />
-	    <ClosingTheLoop />
-	    <RecentPosts />
+	    <ThankYouInternet post={latestPosts[0]} />
+	    <div className="mt5">
+	      <ClosingTheLoop />
+	    </div>
+	    <RecentPosts posts={latestPosts}
+			 tags={["clojure", "open-source", "ethereum", "business", "clojurescript"]}
+	    />
 	    <HatManSpeaks text={"We love Clojure so much that we made a course about it !!!"} />
 	    <ClojureCourse />
 	    <Subscribe />
-   	    <div className="center">
-   	      <Letter className="pt3"/>
-   	      <div className="w-90 w-70-ns center flex mt4 mt4-m mt0-l pa0 pa0-m pa4-l" style={{flex: 1}}>
-   		<div className="flex flex-column pr2 pr2-m pr4-l" style={{flex: 1}}>
-   		  <div className="ttu f7 mb3 b">Latest Posts</div>
-   		  <div>{latestPosts.map((p, i) => <PostCard key={i} post={p} small={true} />)}</div>
-   		</div>
-   		<div className="flex flex-column pl2 pl2-m pl4-l" style={{flex: 1}}>
-   		  <div className="ttu f7 mb3 b">Featured Posts</div>
-   		  <div>{featuredPosts.map((p, i) => <PostCard key={i} post={p} small={true} />)}</div>
-   		</div>
-   	      </div>
-   	    </div>
    	  </Shell>);
 };
 
