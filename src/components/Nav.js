@@ -27,7 +27,7 @@ const links = [{
   icon: robot
 }];
 
-const activeClassName = "o-50";
+const activeClassName = "b--black-80";
 
 const NavItem = ({l}) => {
   return (<div className="flex items-center">
@@ -53,8 +53,10 @@ const Nav = () => {
 	      </div>
 
 	      <div className="dn flex-ns justify-end">
-		{links.map(l => (<NavLink
-				   key={l.label} activeClassName={activeClassName} className={"ml4"} to={l.path}
+		{links.map(l => (<NavLink key={l.label}
+					  activeClassName={activeClassName}
+					  className={"ml4 bb bw2 b--white-05"}
+					  to={l.path}
 				 >
 				   <NavItem l={l} />
 				 </NavLink>))}

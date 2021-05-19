@@ -3,9 +3,11 @@ import {Head, useRouteData} from "react-static"
 import {Link} from "react-router-dom"
 
 import Shell from "../components/Shell"
-import colors from "utils/colors"
-import Pinboard from "../components/Pinboard.js"
+import Pinboard from "../components/Pinboard"
+import EmojiHeading from "../components/EmojiHeading"
 import PostCard from "../components/PostCard"
+import colors from "utils/colors"
+
 import blackHeart from "../images/emoji/black-heart.png";
 import loop from "../images/emoji/loop.png";
 import books from "../images/emoji/books.png";
@@ -23,10 +25,10 @@ const Block = ({backgroundColor, heading, headingColor, headingEmoji, children, 
   return (<section style={{backgroundColor,
 			   borderRadius: 16}}
 		   className="lh-copy tc w-90 w-80-m w-60-ns center pv4 mt4">
-	    <div className="flex justify-center items-center">
-	      <h1 className="f3 f3-m f1-l georgia" style={{color: headingColor}}>{heading}</h1>
-	      <img src={headingEmoji} loading="lazy" className="h2 h3-l pl1 pl3-l" />
-	    </div>
+	    <EmojiHeading title={heading}
+			  color={headingColor}
+			  emoji={headingEmoji}
+	    />
 	    <div className={`w-70 center f4 ${childrenContainerClass}`}>
 	      {children}
 	    </div>
@@ -97,13 +99,11 @@ const RecentPosts = ({posts, tags}) =>
 	      backgroundColor="#FFEEE6"
        >
 	 <div className="flex flex-wrap justify-between black-60 nt3 mb5 f6 f6-m f4-l">
-	   {tags.map(t => <Link to="/" className="underline dib">#{t}</Link>)}
+	   {tags.map(t => <Link key={t} to={`/blog?tag=${t}`} className="underline dib">#{t}</Link>)}
 	 </div>
 	 <div className="w-100 w-80-m w70-l center">
 	   {posts.map((p, i) =>
-	     <div key={p.data.slug} className="mt4">
-	       <PostCard post={p} />
-	     </div>)}
+	     <PostCard key={p.data.slug} containerClass="mt4" post={p} />)}
 	 </div>
 	 <Link to="/blog" className="f3 b underline dib mt5 mb3">
 	   <TextWithRightArrowDoodle text="View all posts" />
@@ -212,15 +212,15 @@ const SEO = () => {
 }
 
 const Landing = () => {
-  const {latestPosts, featuredPosts} = useRouteData();
+  const {recentPosts, tags} = useRouteData();
   return (<Shell>
    	    <SEO />
-	    <ThankYouInternet post={latestPosts[0]} />
+	    <ThankYouInternet post={recentPosts[0]} />
 	    <div className="mt5">
 	      <ClosingTheLoop />
 	    </div>
-	    <RecentPosts posts={latestPosts}
-			 tags={["clojure", "open-source", "ethereum", "business", "clojurescript"]}
+	    <RecentPosts posts={recentPosts}
+			 tags={tags}
 	    />
 	    <HatManSpeaks text={"We love Clojure so much that we made a course about it !!!"} />
 	    <ClojureCourse />

@@ -31,27 +31,27 @@ const Stack = () =>
 	 <div className={stackClass("w-90")} style={stackStyle} />
        </div>)
 
-// TODO: Remove small prop from usage
-const PostCard = ({post, leftTopTitle, stacked}) => {
-  const {title, heroImg, subTitle, tags, publishedOn, author} = post.data;
+const PostCard = ({post, leftTopTitle, stacked, containerClass}) => {
+  const {title, subTitle, heroImg, tags, publishedOn, author, featured} = post.data;
+  const computedLeftTopTitle = featured && "featured"
   return (<Link to={post.path} className="">
 	    {stacked && <Stack />}
-	    <div className="flex flex-column bg-white br4 postCard"
+	    <div className={`flex flex-column bg-white br4 postCard ${containerClass}`}
 		 style={{boxShadow: "0 2px 7px 0 rgba(0, 0, 0, 0.3)"}}
 	    >
 	      <div className="tl ttu f7 b black-40 ph3 ph4-l pt2">
-		{leftTopTitle}
+		{leftTopTitle || computedLeftTopTitle}
 	      </div>
-	      <div className="flex items-center pt3 ph3 ph4-l">
-		<div className="coverContainer" style={{}}>
+	      <div className={`flex items-center pt3 ph3 ph4-l ${featured && "flex-column"}`}>
+		<div className={featured ? "mb3" : "coverContainer"} style={{}}>
 		  {heroImg && <img
 				loading="lazy"
-				className="cover"
+				className={!featured ? "cover" : ""}
 				srcSet={img.getSrcSet(heroImg)}
 				src={img.getOgSrc(heroImg)}
 				alt={`${title} - cover image`} />}
 		</div>
-		<div className="pl3">
+		<div className={`pl3 ${featured && "tc"}`}>
 		  <div className="tl b f6 f5-m f4-l">{title}</div>
 		  {subTitle && <div className="mt1 black-80 f4">{subTitle}</div>}
 		</div>
