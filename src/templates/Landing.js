@@ -50,27 +50,30 @@ const ThankYouInternet = ({post}) =>
 	 </div>
        </Block>)
 
+// TODO: uncomment these when there are posts on the topic
 const techWeLove = [{
   icon: clojureLogo,
   label: "Clojure"
 }, {
   icon: ethLogo,
-  label: "Crypto"
-}, {
+  label: "Blockchain"
+}, /*{
   icon: batShield,
   label: "Privacy"
 }, {
   icon: jarvis,
   label: "UX"
-}]
+}*/]
 
 const TechCard = ({icon, label, href}) =>
-      (<div className="black-80 bg-white br4 pa3 f5 b mt3 link pointer"
-	    style={{minWidth: 100,
-		    boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)"}}>
-	 <img src={icon} className="h2" />
-	 <div>{label}</div>
-       </div>)
+      (<Link to={`/blog?tag=${label.toLowerCase()}`} className="db w-100 w-100-m w-30-l">
+	 <div className="black-80 bg-white br4 pa3 f5 b mt3 mh2"
+	      style={{minWidth: 100,
+		      boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)"}}>
+	   <img src={icon} className="h2" />
+	   <div>{label}</div>
+	 </div>
+       </Link>)
 
 const ClosingTheLoop = () =>
       (<Block heading={"Closing the loop"}
@@ -82,7 +85,7 @@ const ClosingTheLoop = () =>
 	 <p>
 	   Over 1200 people follow Krim Labs and its author Shivek Khurana on various social platforms and email lists. Our research and publications have reached over 1 million readers over the past 4 years. We care the most about:
 	 </p>
-	 <div className="flex justify-between w-100 w-90-m w-80-l flex-wrap mt4 center">
+	 <div className="flex justify-center flex-wrap mt4 center">
 	   {techWeLove.map(t => <TechCard key={t.label} {...t} />)}
 	 </div>
        </Block>)
@@ -222,9 +225,11 @@ const Landing = () => {
 	    <RecentPosts posts={recentPosts}
 			 tags={tags}
 	    />
+	    {/* Uncomment this when Clojure page and sub is ready
 	    <HatManSpeaks text={"We love Clojure so much that we made a course about it !!!"} />
 	    <ClojureCourse />
 	    <Subscribe />
+	     */}
    	  </Shell>);
 };
 

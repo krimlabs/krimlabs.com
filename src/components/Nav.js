@@ -9,11 +9,11 @@ import raisedHands from "../images/emoji/raised-hands.png";
 import robot from "../images/emoji/robot.png";
 import colors from "../utils/colors.js";
 
-const links = [{
+const links = [/*{
   label: "About",
   path: "/about",
   icon: raisedHands
-}, {
+},*/ {
   label: "Blog",
   path: "/blog",
   icon: writingHand
@@ -21,11 +21,11 @@ const links = [{
   label: "Contact",
   path: "/contact",
   icon: telephone
-}, {
+}, /*{
   label: "People",
   path: "/people",
   icon: robot
-}];
+}*/];
 
 const activeClassName = "b--black-80";
 

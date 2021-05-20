@@ -156,7 +156,6 @@ export default {
 
     const recentPosts = R.take(8, allPosts);
 
-    const tags = topTags(allPosts, 5)
 
     const sitePages = getSitePages(content);
     const authorPages = getAuthorPages(content)
@@ -164,11 +163,11 @@ export default {
     return [{
       path: '/',
       template: 'src/templates/Landing',
-      getData: () => ({recentPosts, tags})
+      getData: () => ({recentPosts, tags: topTags(allPosts, 5)})
     }, {
       path: '/blog',
       template: 'src/templates/Blog',
-      getData: () => ({allPostsByYear, allPosts})
+      getData: () => ({allPostsByYear, allPosts, tags: topTags(allPosts, 10)})
     },
     ...postPages,
     ...sitePages,
