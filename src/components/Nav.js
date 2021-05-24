@@ -37,7 +37,7 @@ const NavItem = ({l}) => {
 const scrollToId = id => () => {
   const $el = document.getElementById(id.substring(1))
   window.scrollTo({left: 0,
-		   top: $el.offsetTop - 200,
+		   top: $el.offsetTop - 80,
 		   behaviour: "smooth"})
 }
 
@@ -50,22 +50,22 @@ const BaseNav = ({backgroundColor, leftItem, links}) => {
 		 style={{backgroundColor: backgroundColor || "rgba(255, 255, 255, 0.5)",
 			 backdropFilter: "saturate(180%) blur(5px)"}}>
 	      {leftItem}
-	      <div className="dn flex-ns justify-end">
+	      <div className="dn dn-m flex-ns justify-end">
 		{links.map(l => (<NavLink key={l.label}
 					  activeClassName={l.activeClassName}
 					  className={"ml4 bb bw2 b--white-05"}
 					  to={l.to}
-					  onClick={l.to.startsWith("#") && scrollToId(l.to)}
+					  onClick={l.to.startsWith("#") ? scrollToId(l.to) : () => {}}
 				 >
 				   <NavItem l={l} />
 				 </NavLink>))}
 	      </div>
 
-	      <div className="flex dn-ns black">
+	      <div className="flex dn-l">
 		<Dropdown
 		  options={links.map(l => ({...l, className: "mv3", value: l.path}))}
 		  placeholder="• • •"
-		  placeholderClassName="db pointer mr3"
+		  placeholderClassName="db pointer mr3 mr0-ns"
 		  menuClassName="fixed right-0 mr3 pl3 pr4 white bg-black br3 mt2"
 		  onChange={selected => history.push(selected.value)}
 		/>

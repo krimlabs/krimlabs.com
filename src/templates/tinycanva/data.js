@@ -1,20 +1,16 @@
 import React from "react"
 
-import hug from "../../images/emoji/hugging-face.png"
 import manLaptop from "../../images/emoji/man-technologist-light-skin-tone.png"
 import womanLaptop from "../../images/emoji/woman-technologist-medium-skin-tone.png"
 import brain from "../../images/emoji/brain.png"
 import sparkles from "../../images/emoji/sparkles.png"
 import movieCamera from "../../images/emoji/movie-camera.png"
 
-const WeLoveClojureAnswer = () =>
-      (<>
-	 <p>Clojure is a remarkable tool for thought and a beautiful language. It gets out of your way and lets you focus on the problem at hand. Clojure is homoiconic, hosted, functional, immutable, expressive but
-	   <span className="b"> hard to learn</span>.
-	 </p>
-	 <p>LISP syntax, small talent pool, <span className="b">unorthodox development process</span>, and lack of types make Clojure a tough choice to learn as a developer or develop talent in teams.</p>
-	 <p>That’s why we built this course! To pitch Clojure to our friends and clients.</p>
-       </>)
+const WeLoveClojure = () =>
+      (<div className="lh-copy">
+	 <p>But LISP syntax, small talent pool, <span className="b">unorthodox development process</span>, and lack of types make it tough to pickup or recommend.</p>
+	 <p>That’s why we built this course! So we can recommend Clojure to our friends and clients.</p>
+       </div>)
 
 const WhoMadeThisCourseAnswer = () =>
       (<>
@@ -50,10 +46,6 @@ const ModeOfDelivery = () =>
        </>)
 
 const qAndAs = [{
-  emoji: hug,
-  question: "We love Clojure",
-  answer: WeLoveClojureAnswer
-}, {
   emoji: manLaptop,
   question: "Who made this course?",
   answer: WhoMadeThisCourseAnswer
@@ -165,4 +157,4 @@ const features = [{
     free: false
 }]
 
-export {qAndAs, features}
+export {qAndAs, features, WeLoveClojure}

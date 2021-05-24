@@ -6,50 +6,61 @@ import {TinycanvaNav} from "../components/Nav"
 import SEO from "../components/SEO"
 import array from "../utils/array"
 import YoutubeEmbed from "../components/YoutubeEmbed"
-import {qAndAs, features} from "./tinycanva/data.js"
+import {qAndAs, features, WeLoveClojure} from "./tinycanva/data.js"
+import "./tinycanva/tinycanva.css"
 
 import newlineLogo from "../images/newline-logo-white.svg"
 import bankNote from "../images/emoji/dollar-banknote.png"
 
 const ShivekKhuranaAndNewline = () =>
-      (<div className="flex justify-center items-center">
-	 <Link to="/authors/shivekkhurana" className="mh2 underline b">Shivek Khurana</Link> and
+      (<div className="flex justify-center items-center f7 f6-ns">
+	 <Link to="/authors/shivekkhurana" className="dib mh2 underline b">Shivek Khurana</Link> and
 	 <a href="https://newline.co" className="dib">
-	   <img className="h2 mh2 white pt1"
+	   <img className="h1 h2-ns mh2 white pt1"
 		src={newlineLogo}
 		alt="Newline.co Logo" />
 	 </a>
 	 presents
        </div>)
 
+const RemarkableTool = () =>
+      (<div className="w-100 w-100-m w-40-l">
+	 <h3 className="georgia f3 f3-m f2-l normal mv0">Clojure is a remarkable tool for thought</h3>
+	 <WeLoveClojure />
+       </div>)
+
 const Header = () =>
-      (<header className="mt5">
+      (<header className="mt4 mt5-ns">
 	 <ShivekKhuranaAndNewline />
 
-	 <h1 className="georgia f1 mt4 tc">
+	 <h1 className="georgia f3 f2-ns mt4 mb2 tc w-100 w-70-ns center">
 	   Tinycanva: Clojure for React Developers
 	 </h1>
 
-	 <h2 className="f3 normal white-60 tc">
+	 <h2 className="f4 f3-ns normal white-60 mv0 tc">
 	   A course on building a web-based graphics editor with Clojure.
 	 </h2>
 
-	 <YoutubeEmbed youtubeId="O2x2YdCH9Eg" containerClass="mt5"/>
+	 <div className="flex flex-column flex-column-m flex-row-l justify-between black br4 bg-white ph3 ph4-m ph5-l pv3 pv4-m pv4-l items-center mt4 mt5-ns">
+	   <RemarkableTool />
+	   <div className="w-100 w-100-m w-50-l">
+	     <YoutubeEmbed youtubeId="O2x2YdCH9Eg" containerClass=""/>
+	   </div>
+	 </div>
        </header>)
 
 const QAndA = ({emoji, question, answer: Answer}) =>
-      (<div style={{width: "calc(48% - 24px)"}}
-	    className="mt4">
+      (<div className="mt4 QAndA">
 	 <img src={emoji} className="" style={{height: 40, width: 40}} />
-	 <div className="georgia f2 mt2">{question}</div>
-	 <div className="mt4 lh-copy f4"><Answer /></div>
+	 <div className="georgia f3 mt2 b">{question}</div>
+	 <div className="mt3 lh-copy f5"><Answer /></div>
        </div>)
 
 const QAndAGrid = () =>
-      (<div id="faq"
+      (<section id="faq"
 	    className="mt4 flex justify-between flex-wrap">
 	 {qAndAs.map(qa => <QAndA key={qa.question} {...qa} />)}
-       </div>)
+       </section>)
 
 const Feature = ({title, body, containerClass}) =>
       (<div className={`mb3 ${containerClass}`}>
@@ -59,12 +70,13 @@ const Feature = ({title, body, containerClass}) =>
 
 const freeFeatures = features.filter(f => f.free)
 const paidFeatures = features.filter(f => !f.free)
+const partedPaidFeatures = array.partition(paidFeatures, paidFeatures.length/2)
 
 const PricingPlanHeader = ({price, title, subTitle}) =>
       (<div className="mt3 mb3 bb pb4 b--white-40">
-	 <div className="f1 georgia mb4">{price}</div>
-	 <div className="f3 b mb1">{title}</div>
-	 <div className="h1 f5 i white-70">{subTitle}</div>
+	 <div className="f1 f3-m f1-l georgia mb3 mb2-m mb4-ns">{price}</div>
+	 <div className="f4 f4-m f3-l b mb1">{title}</div>
+	 <div className="h0 h1-ns f6 f5-ns i white-70">{subTitle}</div>
        </div>)
 
 const PricingSectionHeader = () =>
@@ -74,42 +86,38 @@ const PricingSectionHeader = () =>
        </div>)
 
 const Plans = () =>
-      (<div className="flex justify-between">
- 	 <div style={{width: "calc(33.33% - 24px)"}}
-	      className="">
+      (<div className="flex flex-column flex-row-ns justify-between">
+ 	 <div className="w-100 w-30-m w-30-l">
 	   <PricingPlanHeader price="$ 0.00"
 			      title="Reduce Mode" />
  	   {freeFeatures.map(f => <Feature key={f.title} {...f} />)}
  	 </div>
 
-	 <div style={{width: "calc(66.66% - 24px)"}}
-	      className="">
+	 <div className="w-100 w-70-m w-70-l pl0 pl4-ns">
 	   <PricingPlanHeader price="$ 49.00"
 			      title="Transduce Mode"
 			      subTitle="Everything in Reduce Mode plus"/>
-	   <div className="flex justify-between">
- 	     {array.partition(paidFeatures, paidFeatures.length/2)
-	      .map((part, i) =>
-		(<div key={`fetaures-part-${i}`}
-		      style={{width: "calc(50% - 24px)"}}
-		      className="">
-	  	   {part.map(f => <Feature key={f.title} {...f} />)}
-	         </div>))}
+	   <div className="flex flex-column flex-row-ns justify-between">
+	     <div className="w-100 w-50-ns">
+	       {partedPaidFeatures[0].map(f => <Feature key={f.title} {...f} />)}
+	     </div>
+
+	     <div className="w-100 w-50-ns">
+	       {partedPaidFeatures[1].map(f => <Feature key={f.title} {...f} />)}
+	     </div>
 	   </div>
 	 </div>
        </div>)
 
 const Purchase = () =>
       (<>
-	 <div className="flex justify-between b f4 mt4">
-	   <div style={{width: "calc(33.33% - 24px)"}}
-		className="link pointer bg-white black br3 pv2 br3 tc">
+	 <div className="flex flex-column flex-row-ns justify-between b f4 mt4">
+	   <div className="w-100 w-30-ns link pointer bg-white black br3 pv2 br3 tc mb3 mb0-ns">
 	     Enroll Free
 	   </div>
 
-	   <div style={{width: "calc(66.66% - 24px)",
-			backgroundColor: "#2A6A5E"}}
-		className="link pointer white br2 pv2 br3 tc">
+	   <div style={{backgroundColor: "#2A6A5E"}}
+		className="w-100 w-70-ns ml0 ml4-ns link pointer white br2 pv2 br3 tc mt3 mt0-ns">
 	     Enroll Full ($ 49.00)
 	   </div>
 	 </div>
