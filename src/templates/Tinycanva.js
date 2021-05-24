@@ -1,4 +1,5 @@
 import React from "react"
+import {Head} from "react-static"
 import {Link} from "react-router-dom"
 
 import Shell from "../components/Shell"
@@ -29,6 +30,24 @@ const RemarkableTool = () =>
 	 <WeLoveClojure />
        </div>)
 
+const WistiaEmbed = () =>
+      (<>
+	 <Head>
+	   <script src="https://fast.wistia.com/embed/medias/ler01csxi6.jsonp" async></script>
+	   <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+	 </Head>
+	 <div className="wistia_responsive_padding" style={{padding: "56.25% 0 0 0", position: "relative"}}>
+	   <div className="wistia_responsive_wrapper" style={{height: "100%", left: 0, position: "absolute", top: 0, width:"100%"}}>
+	     <div className="wistia_embed wistia_async_ler01csxi6 videoFoam=true" style={{height: "100%", position: "relative", width: "100%"}}>
+	       <div className="wistia_swatch" style={{height: "100%", left: 0, opacity: 0, overflow: "hidden", position: "absolute", top: 0, transition: "opacity 200ms", width: "100%"}}>
+		 <img src="https://fast.wistia.com/embed/medias/ler01csxi6/swatch" style={{filter: "blur(5px)", height: "100%", objectFit: "contain", width: "100%"}}
+		      alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" />
+	       </div>
+	     </div>
+	   </div>
+	 </div>
+       </>)
+
 const Header = () =>
       (<header className="mt4 mt5-ns">
 	 <ShivekKhuranaAndNewline />
@@ -44,7 +63,7 @@ const Header = () =>
 	 <div className="flex flex-column flex-column-m flex-row-l justify-between black br4 bg-white ph3 ph4-m ph5-l pv3 pv4-m pv4-l items-center mt4 mt5-ns">
 	   <RemarkableTool />
 	   <div className="w-100 w-100-m w-50-l">
-	     <YoutubeEmbed youtubeId="O2x2YdCH9Eg" containerClass=""/>
+	     <WistiaEmbed />
 	   </div>
 	 </div>
        </header>)
@@ -52,8 +71,8 @@ const Header = () =>
 const QAndA = ({emoji, question, answer: Answer}) =>
       (<div className="mt4 QAndA">
 	 <img src={emoji} className="" style={{height: 40, width: 40}} />
-	 <div className="georgia f3 mt2 b">{question}</div>
-	 <div className="mt3 lh-copy f5"><Answer /></div>
+	 <div className="georgia f4 f3-ns mt2 b">{question}</div>
+	 <div className="mt3 lh-copy f6 f5-ns"><Answer /></div>
        </div>)
 
 const QAndAGrid = () =>
@@ -65,7 +84,7 @@ const QAndAGrid = () =>
 const Feature = ({title, body, containerClass}) =>
       (<div className={`mb3 ${containerClass}`}>
 	 <div>{title}</div>
-	 <div className="mt2 white-50">{body}</div>
+	 <div className="dn db-ns mt2 white-50">{body}</div>
        </div>)
 
 const freeFeatures = features.filter(f => f.free)
@@ -113,12 +132,16 @@ const Purchase = () =>
       (<>
 	 <div className="flex flex-column flex-row-ns justify-between b f4 mt4">
 	   <div className="w-100 w-30-ns link pointer bg-white black br3 pv2 br3 tc mb3 mb0-ns">
-	     Enroll Free
+	     <a href="https://www.newline.co/samples/course/tinycanva-clojure-for-react-developers" className="db w-100">
+	       Enroll Free
+	     </a>
 	   </div>
 
 	   <div style={{backgroundColor: "#2A6A5E"}}
 		className="w-100 w-70-ns ml0 ml4-ns link pointer white br2 pv2 br3 tc mt3 mt0-ns">
-	     Enroll Full ($ 49.00)
+	     <a href="https://www.newline.co/courses/tinycanva-clojure-for-react-developers" className="db w-100">
+	       Enroll Full ($ 49.00)
+	     </a>
 	   </div>
 	 </div>
 
