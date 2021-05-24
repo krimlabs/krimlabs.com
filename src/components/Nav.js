@@ -7,27 +7,23 @@ import telephone from "../images/emoji/telephone.png";
 import writingHand from "../images/emoji/writing-hand.png";
 import raisedHands from "../images/emoji/raised-hands.png";
 import robot from "../images/emoji/robot.png";
+import bankNote from "../images/emoji/dollar-banknote.png"
+import womanRaisingHand from "../images/emoji/woman-raising-hand-medium-light-skin-tone.png"
+import speechBalloon from "../images/emoji/speech-balloon.png"
+
 import colors from "../utils/colors.js";
 
-const links = [/*{
-  label: "About",
-  path: "/about",
-  icon: raisedHands
-},*/ {
+const baseLinks = [{
   label: "Blog",
-  path: "/blog",
-  icon: writingHand
+  to: "/blog",
+  icon: writingHand,
+  activeClassName: "b--black-80"
 }, {
   label: "Contact",
-  path: "/contact",
-  icon: telephone
-}, /*{
-  label: "People",
-  path: "/people",
-  icon: robot
-}*/];
-
-const activeClassName = "b--black-80";
+  to: "/contact",
+  icon: telephone,
+  activeClassName: "b--black-80"
+}];
 
 const NavItem = ({l}) => {
   return (<div className="flex items-center">
@@ -38,25 +34,28 @@ const NavItem = ({l}) => {
 	  </div>);
 };
 
-const Nav = () => {
+const scrollToId = id => () => {
+  const $el = document.getElementById(id.substring(1))
+  window.scrollTo({left: 0,
+		   top: $el.offsetTop - 200,
+		   behaviour: "smooth"})
+}
+
+const BaseNav = ({backgroundColor, leftItem, links}) => {
   const {pathname} = useLocation();
   const history = useHistory();
 
-  return (<div className="fixed w-100">
-	    <div className="black flex pv2 ph2 ph4-ns justify-between items-center"
-		 style={{background: "rgba(255, 255, 255, 0.5)",
+  return (<nav className="fixed w-100 z-1 db">
+	    <div className="flex pv2 ph2 ph4-ns justify-between items-center"
+		 style={{backgroundColor: backgroundColor || "rgba(255, 255, 255, 0.5)",
 			 backdropFilter: "saturate(180%) blur(5px)"}}>
-	      <div className="">
-		<NavLink to="/" className="b">
-		  Krim Labs
-		</NavLink>
-	      </div>
-
+	      {leftItem}
 	      <div className="dn flex-ns justify-end">
 		{links.map(l => (<NavLink key={l.label}
-					  activeClassName={activeClassName}
+					  activeClassName={l.activeClassName}
 					  className={"ml4 bb bw2 b--white-05"}
-					  to={l.path}
+					  to={l.to}
+					  onClick={l.to.startsWith("#") && scrollToId(l.to)}
 				 >
 				   <NavItem l={l} />
 				 </NavLink>))}
@@ -72,7 +71,55 @@ const Nav = () => {
 		/>
 	      </div>
 	    </div>
-	  </div>);
+	  </nav>);
 };
 
+const BaseLeftItem = () =>
+      (<NavLink to="/" className="b dib">
+	 Krim Labs
+       </NavLink>)
+
+const Nav = () =>
+      (<BaseNav
+	 backgroundColor="rgba(255, 255, 255, 0.5)"
+	 links={baseLinks}
+	 leftItem={<BaseLeftItem />} />)
+
+const TinycanvaLeftItem = () =>
+      (<div className="flex">
+	 <div className="white-70 mr2">
+	   <BaseLeftItem />
+	 </div>
+	 /
+	 <NavLink to="/courses/tinycanva-clojure-for-react-developers"
+		  className="ml2 white b">
+	   Tinycanva
+	 </NavLink>
+       </div>)
+
+const tinycanvaLinks = [{
+  label: "FAQs",
+  to: "#faq",
+  icon: womanRaisingHand,
+  activeClassName: ""
+}, {
+  label: "Pricing",
+  to: "#pricing",
+  icon: bankNote,
+  activeClassName: ""
+}, {
+  label: "Testimonies",
+  to: "#testimonies",
+  icon: speechBalloon,
+  activeClassName: ""
+}];
+
+const TinycanvaNav = () =>
+      (<BaseNav
+	 backgroundColor="rgba(27, 27, 27, 0.5)"
+	 links={tinycanvaLinks}
+	 leftItem={<TinycanvaLeftItem />}
+       />)
+
 export default Nav;
+export {TinycanvaNav}
