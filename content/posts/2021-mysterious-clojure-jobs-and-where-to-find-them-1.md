@@ -13,6 +13,7 @@ relatedSlugs:
   - clojure-drug-dealer-api-part-1
   - clojure-424-days
   - ethical-open-sourced-and-profitable
+  - repl-post
 author: shivekkhurana
 ---
 *Photo by <a href="https://unsplash.com/@chiichiinii?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Iman soleimany zadeh</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>*
