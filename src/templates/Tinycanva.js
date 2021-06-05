@@ -159,17 +159,21 @@ const Pricing = () =>
        </section>)
 
 const Tinycanva = () =>
-      (<div className="white"
-	    style={{backgroundColor: "#1B1B1B"}}>
-	 <Shell nav={TinycanvaNav}>
-	   <SEO title="Krim / Tinycanva - Clojure for React developers"
-		tags="clojure,course,react,clojure app" />
-	   <div className="w-90 w-80-m w-60-ns center">
-	     <Header />
-	     <QAndAGrid />
-	     <Pricing />
-	   </div>
-	 </Shell>
-       </div>)
+      (<>
+	 <SEO title="Tinycanva - Clojure for React developers"
+	      subTitle="A course on building a web-based graphics editor with Clojure."
+	      tags="clojure,course,react,clojure app,tinycanva course" />
+	 <div className="white"
+	      style={{backgroundColor: "#1B1B1B"}}
+	 >
+	   <Shell nav={TinycanvaNav}>
+	     <div className="w-90 w-80-m w-60-ns center">
+	       <Header />
+	       <QAndAGrid />
+	       <Pricing />
+	     </div>
+	   </Shell>
+	 </div>
+       </>)
 
 export default Tinycanva

@@ -94,7 +94,8 @@ const Nav = () =>
       (<BaseNav
 	 backgroundColor="rgba(255, 255, 255, 0.5)"
 	 links={baseLinks}
-	 leftItem={<BaseLeftItem />} />)
+	 leftItem={<BaseLeftItem />}
+       />)
 
 const TinycanvaLeftItem = () =>
       (<div className="flex">
