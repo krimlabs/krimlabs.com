@@ -118,7 +118,7 @@ const tinycanvaLinks = [{
   to: "#pricing",
   icon: bankNote,
   activeClassName: ""
-},/* {
+}, /* {
   label: "Testimonies",
   to: "#testimonies",
   icon: speechBalloon,
