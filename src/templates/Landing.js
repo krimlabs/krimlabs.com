@@ -1,8 +1,9 @@
 import React from "react"
-import {Head, useRouteData} from "react-static"
+import {useRouteData} from "react-static"
 import {Link} from "react-router-dom"
 
 import Shell from "../components/Shell"
+import SEO from "../components/SEO"
 import Pinboard from "../components/Pinboard"
 import EmojiHeading from "../components/EmojiHeading"
 import PostCard from "../components/PostCard"
@@ -182,26 +183,20 @@ const Subscribe = () =>
 	 <Form />
        </Block>)
 
-const SEO = () => {
-  return (<Head>
-	    <title>Krim Labs</title>
-	    <meta name="keywords" content="shivek khurana, krim labs, clojure, india, new delhi, javascript, react, shivek, krim" />
-	    <meta name="robots" content="index, follow" />
-	    <meta name="description" content="A canopy for my consultancy, products and ideas." />
-	    <meta property="og:url" content="https://krimlabs.com" />
-	    <meta property="og:description" content="A canopy for my consultancy, products and ideas." />
-	    <meta property="og:title" content="Krim Labs" />
-	    <meta property="og:type" content="website" />
-	    {/*
-	    <meta property="og:image" content={`https://krimlabs.com/img/og.png`} />
-	     */}
-	  </Head>);
+const PageSEO = () => {
+  return (<SEO
+	    title="Krim Labs"
+	    subTitle="We are grateful to countless invisible individuals who published their work in the form of docs, articles, videos and tutorials for us to learn. Krim is our way to give back. Krim is how we close the loop.
+
+"
+	    tags="shivek khurana, krim labs, clojure, india, clojure course, javascript, react, shivek, krim"
+	  />)
 }
 
 const Landing = () => {
   const {recentPosts, tags} = useRouteData();
   return (<Shell attributeFreepik={true}>
-   	    <SEO />
+   	    <PageSEO />
 	    <ThankYouInternet post={recentPosts[0]} />
 	    <div className="mt5">
 	      <ClosingTheLoop />

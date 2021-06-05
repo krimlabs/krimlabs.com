@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {NavLink, useLocation, useHistory} from "react-router-dom";
 import Dropdown from "react-dropdown";
-import Headroom from "react-headroom";
 
 import telephone from "../images/emoji/telephone.png";
 import writingHand from "../images/emoji/writing-hand.png";

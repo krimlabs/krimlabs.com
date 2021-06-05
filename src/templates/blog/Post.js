@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
-import {useRouteData, Head} from "react-static";
+import {useRouteData} from "react-static";
 import {Link, useLocation} from "react-router-dom";
 import convert from "htmr";
 
 import colors from "../../utils/colors";
 import Shell from "../../components/Shell";
+import SEO from "../../components/SEO";
 import Nav from "../../components/Nav";
 import PostCard from "../../components/PostCard";
 import str from "../../utils/string";
@@ -84,24 +85,6 @@ const Share = ({title, url}) => {
 	    </ShareButton>
 	  </div>);
 };
-
-const SEO = ({title, subTitle, tags, publishedOn, author, canonicalUrl, heroImg}) => {
-  return (<Head>
-	    {/*SEO*/}
-	    <title>{title}</title>
-	    <meta name="keywords" content={tags} />
-	    <meta name="robots" content="index, follow" />
-	    {subTitle && <meta name="description" content={subTitle} />}
-	    {subTitle && <meta name="og:description" content={subTitle} />}
-	    <meta property="og:title" content={title} />
-	    <meta property="og:type" content="article" />
-	    <meta property="article:published_time" content={publishedOn} />
-	    <meta property="article:author" content={author.name} />
-	    <meta property="article:tag" content={tags} />
-	    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-	    {heroImg && heroImg.indexOf('https://') === -1 && <meta property="og:image" content={`https://krimlabs.com${heroImg}`} />}
-	  </Head>);
-}
 
 const AuthorImage = ({profilePicture, name}) => {
   const optimizedPaths = img.getOptimizedPaths(profilePicture)
