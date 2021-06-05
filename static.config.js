@@ -79,11 +79,9 @@ const stripRelatedPostsContent = post =>
 const stripRelatedPosts = post => R.dissocPath(["data","relatedPosts"], post)
 
 const injectAuthor = authors => post => {
-  return R.assocPath(
-    ["data", "author"],
-    R.find(R.propEq("slug", post.data.author))(R.values(authors)),
-    post
-  )
+  const author = R.find(R.propEq("slug", post.data.author))(R.values(authors))
+  const authorWithoutContents = R.dissoc("contents", author)
+  return R.assocPath(["data", "author"], authorWithoutContents, post)
 }
 
 const injectRelatedPostAuthors = authors => post => {
@@ -190,5 +188,6 @@ export default {
 export {
   contentDir, isPublished, relatedSlugs, relatedPosts,
   injectRelatedPosts, postsToPostPages, stripRelatedPostsContent,
-  stripPostContents, rawDataToGetData, injectRelatedPostAuthors
+  stripPostContents, rawDataToGetData, injectRelatedPostAuthors,
+  injectAuthor
 }
