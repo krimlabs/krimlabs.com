@@ -149,8 +149,8 @@ const Post = () => {
 
 	    <article className="mt3 pb5">
 	      <div className="center w-90 w-80-m w-50-l">
-		<div className="f3 f2-m f1-l b mt5">{title}</div>
-		{subTitle && <div className="f2 mt1 mb2 bp3-text-muted">{subTitle}</div>}
+		<h1 className="f3 f2-m f1-l b mt5">{title}</h1>
+		{subTitle && <h2 className="f4 f3-ns normal black-80 mt1 mb2 bp3-text-muted">{subTitle}</h2>}
 		<Author author={author} publishedOn={publishedOn} />
 		<Share title={title} url={`https://krimlabs.com/blog/${slug}`}/>
 	      </div>

@@ -44,7 +44,7 @@ const ThankYouInternet = ({post}) =>
 	 <p>
 	   We are grateful to the open-source movement that taught us how to build systems at scale. And we are grateful to countless invisible individuals who published their work in the form of docs, articles, videos and tutorials for us to learn. Krim is our way to give back. <span className="b">Krim is how we close the loop</span>.
 	 </p>
-	 <div className="w-100 w-90-m w-80-l center nb5 mt3 mt5-l">
+	 <div className="w-100 w-100-m w-90-l center nb5 mt3 mt5-l">
 	   <PostCard post={post} leftTopTitle="Latest Post" stacked={true}/>
 	 </div>
        </Block>)
@@ -103,7 +103,7 @@ const RecentPosts = ({posts, tags}) =>
 	 <div className="black-60 nt3 mb3 mb4-m mb5-l f6 f6-m f4-l">
 	   {tags.map(t => <Link key={t} to={`/blog?tag=${t}`} className="underline dib pa2">#{t}</Link>)}
 	 </div>
-	 <div className="w-100 w-80-m w70-l center">
+	 <div className="w-100 w-100-m w-80-l center">
 	   {posts.map((p, i) =>
 	     <PostCard key={p.data.slug} containerClass="mt4" post={p} />)}
 	 </div>

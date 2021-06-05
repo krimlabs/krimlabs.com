@@ -54,19 +54,18 @@ The #jobs and #remote-jobs channel is an active stream of Clojure openings. From
 
 This is by far the best way in my opinion. Advertised Clojure jobs are visible to everyone. This means you have to compete against other candidates. But many companies don't advertise their openings, because they expect to hire by reference or personal outreach. You can find these openings by using the `site:` operator on Google.
 
-The idea is simple: Google indexes all pages on the internet. If there is a Clojure job, it'd be posted on some HR platform, and Google would index it. So if we can come up with a list of famous HR platforms, we can use the search operators like: "[clojure site:bamboohr.com](https://www.google.com/search?q=clojure+site%3Abamboohr.com)":
+The idea is simple: Google indexes all pages on the internet. If there is a Clojure job, it'd be posted on some HR platform, and Google would index it. So if we can come up with a list of famous HR platforms, we can use the search operators like: [`clojure site:bamboohr.com`](https://www.google.com/search?q=clojure+site%3Abamboohr.com):
 
-![Google search for Clojure jobs on Bamboo HR](/img/content/posts/screenshot-2021-06-04-at-10.21.51-pm.png)
-
+![Google search for Clojure jobs on Bamboo HR](/img/content/posts/screenshot-2021-06-04-at-10.21.51-pm.png?large)
 *Google search for Clojure jobs on Bamboo HR*
 
 There are 5 famous HR platforms that I know of:
 
-1. Workable (https://workable.com)
-2. Bamboo HR (https://bamboohr.com)
-3. Greenhouse (https://greeenhouse.io)
-4. Breezy (https://breezy.hr)
-5. Lever (https://lever.co)
+1. Workable - [`clojure site:workable.com`](https://www.google.com/search?q=clojure+site%3Aworkable.com)
+2. Bamboo HR - [`clojure site:bamboohr.com`](https://www.google.com/search?q=clojure+site%3Abamboohr.com)
+3. Greenhouse - [`clojure site:greenhouse.io`](https://www.google.com/search?q=clojure+site%3Agreenhouse.io)
+4. Breezy - [`clojure site:breezy.hr`](https://www.google.com/search?q=clojure+site%3Abreezy.hr)
+5. Lever - [`clojure site:lever.co`](https://www.google.com/search?q=clojure+site%3lever.co)
 
 By searching these platforms for the keywords "clojure" and "clojurescript", you can expect to find as many as 20 unlisted jobs every month. This hack can also be used for other not-so-famous but loved languages like Haskell.
 
