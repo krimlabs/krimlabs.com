@@ -9,8 +9,8 @@ slug: clojure-jobs-and-where-to-find-them
 tags:
   - clojure
 relatedSlugs:
-  - 2021-clojure-a-learn-once-run-anywhere-candidate-you-probably-didnt-know-about
-  - clojure-drug-dealer-api-part-1
+  - clj-learn-once-run-anywhere
+  - clojure-drug-dealer-part-1
   - clojure-424-days
   - ethical-open-sourced-and-profitable
 author: shivekkhurana
@@ -73,7 +73,7 @@ By searching these platforms for the keywords "clojure" and "clojurescript", you
 
 This is not straight forward, but attending meet ups introduces you to companies working with Clojure, and some times they might even float some openings.
 
-[London Clojurians](https://londonclojurians.org/) is an active online meet up. Attending online and in-person events introduces you to people using the technology. This can potentially translate to an internal recommendation. 
+[London Clojurians](https://londonclojurians.org/) is an active online meet up. Attending online and in-person events introduces you to people using the technology. This can potentially translate to an internal recommendation.
 
 ## Conclusion
 
