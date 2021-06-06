@@ -5,7 +5,7 @@ import convert from "htmr";
 
 import colors from "../../utils/colors";
 import Shell from "../../components/Shell";
-import SEO from "../../components/SEO";
+import SEO, {ArticleStructuredData} from "../../components/SEO";
 import Nav from "../../components/Nav";
 import PostCard from "../../components/PostCard";
 import str from "../../utils/string";
@@ -129,6 +129,11 @@ const Post = () => {
 
 	    <SEO title={title} subTitle={subTitle} author={author} heroImg={heroImg}
 		 tags={tags} publishedOn={publishedOn} canonicalUrl={canonicalUrl} />
+
+	    <ArticleStructuredData title={title} heroImg={heroImg} publishedOn={publishedOn}
+				   authorName={author.name} tags={tags}
+				   url={`https://krimlabs.com/blog/${slug}`}
+				   subTitle={subTitle}/>
 
 	    <article className="mt3 pb5"
 		     style={{overflowWrap: "break-word"}}>
