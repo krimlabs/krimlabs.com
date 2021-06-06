@@ -130,7 +130,8 @@ const Post = () => {
 	    <SEO title={title} subTitle={subTitle} author={author} heroImg={heroImg}
 		 tags={tags} publishedOn={publishedOn} canonicalUrl={canonicalUrl} />
 
-	    <article className="mt3 pb5">
+	    <article className="mt3 pb5"
+		     style={{overflowWrap: "break-word"}}>
 	      <div className="center w-90 w-80-m w-50-l">
 		<h1 className="f3 f2-m f1-l b mt5">{title}</h1>
 		{subTitle && <h2 className="f4 f3-ns normal black-80 mt1 mb2 bp3-text-muted">{subTitle}</h2>}
