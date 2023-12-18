@@ -1,7 +1,7 @@
 import path from "path";
 import jdown from "jdown";
 import { getHighlighter } from "shiki";
-import { rebuildRoutes } from "react-static/node";
+// import { rebuildRoutes } from "react-static/node";
 import chokidar from "chokidar";
 import { paramCase } from "change-case";
 import R from "ramda";
@@ -12,7 +12,7 @@ const contentDir = "./content";
 if (process.env.REACT_STATIC_ENV === "development") {
   chokidar.watch(contentDir).on("all", () => {
     try {
-      rebuildRoutes();
+      // rebuildRoutes();
     } catch (e) {
       // it's okay
     }
