@@ -1,15 +1,10 @@
 import clsx from "clsx";
-import { Image } from "astro:assets";
 
 import { fetchWorkoutStats } from "@src/domain/workouts";
 import { fetchMeditationAggregates } from "@src/domain/meditations";
-import {
-  getCurrentMonth,
-  getCurrentYear,
-  getWeekdaysInMonth,
-  getLastDayOfMonth,
-  getCurrentDay,
-} from "@src/domain/time";
+import { fetchSleepAggregates } from "@src/domain/sleep";
+import When from "@src/components/When";
+
 import orbIcon from "@src/img/spotlightIcons/orb.png";
 import globeIcon from "@src/img/spotlightIcons/globe.png";
 import paperclipIcon from "@src/img/spotlightIcons/paperclip.png";
@@ -18,10 +13,24 @@ import saladBowlIcon from "@src/img/spotlightIcons/salad-bowl.png";
 
 const workoutStats = await fetchWorkoutStats();
 const meditationAggregates = await fetchMeditationAggregates();
-const currentMonth = getCurrentMonth();
-const currentYear = getCurrentYear();
-const weekdays = getWeekdaysInMonth(currentYear, currentMonth);
-const currentDay = getCurrentDay();
+const sleepAggregates = await fetchSleepAggregates();
+
+function daysUntilNovember2074(): string {
+  const currentDate: Date = new Date();
+  const november2074: Date = new Date(2074, 10, 1); // November is represented by 10 since months are zero-indexed
+
+  const millisecondsInDay: number = 1000 * 60 * 60 * 24;
+  const differenceInTime: number =
+    november2074.getTime() - currentDate.getTime();
+
+  const daysLeft: number = Math.floor(differenceInTime / millisecondsInDay);
+
+  if (daysLeft >= 1000) {
+    return Math.ceil(daysLeft / 1000) + "k";
+  } else {
+    return daysLeft.toString();
+  }
+}
 
 type SpotlightBaseCardProps = {
   bgColorClass: string;
@@ -41,7 +50,7 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
         "bg-gradient-to-b",
         "rounded-xl",
         "flex flex-col",
-        "p-3 mb-4",
+        "py-3 px-4 mb-4",
         "",
         props.bgColorClass,
         props.textColorClass,
@@ -80,33 +89,49 @@ function StateOfBeingContent() {
     {
       key: "Workout",
       description: "100% means completion of 5 workouts per week.",
-      val:
-        (workoutStats.countByYearMonth[currentYear][currentMonth] * 100) /
-        weekdays,
+      val: ((workoutStats.latest * 100) / workoutStats.weekdaysPassed).toFixed(
+        0,
+      ),
+      descriptor: "%",
     },
     {
       key: "Meditation",
       description: "100% means completion of 1 meditation per day.",
-      val:
-        (meditationAggregates[currentYear][currentMonth].stats.numMeditations *
-          100) /
-        currentDay,
+      val: (
+        (meditationAggregates.latestForDashboard.stats.numMeditations * 100) /
+        meditationAggregates.latestForDashboard.currentDay
+      ).toFixed(0),
+      descriptor: "%",
     },
     {
       key: "Awareness",
       description: "100% means recording of 2 observations per day.",
-      val:
-        (meditationAggregates[currentYear][currentMonth].stats.numObservations *
-          100) /
-        currentDay,
+      val: (
+        (meditationAggregates.latestForDashboard.stats.numObservations * 100) /
+        // target two observations per day
+        (meditationAggregates.latestForDashboard.currentDay * 2)
+      ).toFixed(0),
+      descriptor: "%",
     },
     {
       key: "Spirit",
       description: "100% means every meditation enhanced my spirit.",
       val: parseFloat(
-        meditationAggregates[currentYear][currentMonth].stats
-          .mediationEfficiency,
+        meditationAggregates.latestForDashboard.stats.meditationEfficiency,
       ),
+      descriptor: "%",
+    },
+    {
+      key: "Sleep",
+      description: "Sleep is a combination of various factors",
+      val: sleepAggregates.latest.sleepIndex,
+    },
+    {
+      key: "~Time left",
+      description:
+        "Approximate number of days left in my life, assuming life span of 80.",
+      val: daysUntilNovember2074(),
+      descriptor: "days",
     },
   ];
   return (
@@ -114,11 +139,14 @@ function StateOfBeingContent() {
       {txfmStats.map((s) => {
         return (
           <div key={s.key}>
-            <h3 className={clsx("text-xs font-bold", "mb-1")}>{s.key}</h3>
+            <h3 className={clsx("text-sm", "mb-1", "opacity-80")}>{s.key}</h3>
             <p className={clsx("text-3xl font-bold")}>
-              {s.val.toFixed(0)}
-              <span className="text-sm ml-1" style={{ verticalAlign: "super" }}>
-                %
+              {s.val}
+              <span
+                className="text-xs ml-1 opacity-60 font-normal"
+                style={{ verticalAlign: "super" }}
+              >
+                {s.descriptor}
               </span>
             </p>
           </div>

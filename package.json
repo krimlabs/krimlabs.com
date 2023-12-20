@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "local-cms": "PORT=9999 bun run decap-server"
   },
   "dependencies": {
     "@astrojs/check": "^0.3.3",
@@ -19,6 +20,7 @@
     "change-case": "^5.3.0",
     "chokidar": "^3.5.3",
     "clsx": "^2.0.0",
+    "decap-server": "^3.0.1",
     "jdown": "^1.0.5",
     "ramda": "^0.29.1",
     "react": "^18.2.0",
