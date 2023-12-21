@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { fetchWorkoutStats } from "@src/domain/workouts";
 import { fetchMeditationAggregates } from "@src/domain/meditations";
 import { fetchSleepAggregates } from "@src/domain/sleep";
-import When from "@src/components/When";
+import { getLastTripAndEndCityTime } from "@src/domain/content";
 
 import orbIcon from "@src/img/spotlightIcons/orb.png";
 import globeIcon from "@src/img/spotlightIcons/globe.png";
@@ -15,13 +15,13 @@ const workoutStats = await fetchWorkoutStats();
 const meditationAggregates = await fetchMeditationAggregates();
 const sleepAggregates = await fetchSleepAggregates();
 
-function daysUntilNovember2074(): string {
+function daysUntilNovember2072(): string {
   const currentDate: Date = new Date();
-  const november2074: Date = new Date(2074, 10, 1); // November is represented by 10 since months are zero-indexed
+  const november2072: Date = new Date(2072, 10, 1); // November is represented by 10 since months are zero-indexed
 
   const millisecondsInDay: number = 1000 * 60 * 60 * 24;
   const differenceInTime: number =
-    november2074.getTime() - currentDate.getTime();
+    november2072.getTime() - currentDate.getTime();
 
   const daysLeft: number = Math.floor(differenceInTime / millisecondsInDay);
 
@@ -37,6 +37,7 @@ type SpotlightBaseCardProps = {
   title: string;
   contentComponent: React.ComponentType<any>;
   icon: any;
+  smallHeading?: boolean;
   ctaLabel?: string;
   ctaColorClass?: string;
   textColorClass?: string | "";
@@ -59,11 +60,20 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
       <div className="flex justify-end">
         <img
           src={props.icon.src}
-          className={clsx("mr-[-24%] mb-[-48%]", "h-[96px] w-[96px]")}
+          className={clsx(
+            "mr-[-12%] sm:mr-[-10%] md:mr-[-24%] mb-[-48%]",
+            "h-[96px] w-[96px]",
+          )}
         />
       </div>
 
-      <h2 className="text-2xl font-bold mb-3">{props.title}</h2>
+      <h2
+        className={clsx("text-2xl font-bold mb-3", {
+          "text-sm mb-[4px]": props.smallHeading,
+        })}
+      >
+        {props.title}
+      </h2>
       <div>{Content && <Content />}</div>
       <div className={clsx(props.ctaColorClass, "font-bold text-xl", "mt-3")}>
         {props.ctaLabel}
@@ -74,7 +84,7 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
 
 function OpenMeetContent() {
   return (
-    <div className="text-sm w-[80%]">
+    <div className="text-sm leading-5 w-[80%]">
       <p>Meeting strangers increases the surface area for luck to land on.</p>
       <p className="mt-2">
         If you find anything I do interesting, we should meet. No agenda, just a
@@ -114,7 +124,7 @@ function StateOfBeingContent() {
       descriptor: "%",
     },
     {
-      key: "Spirit",
+      key: "Lucidity",
       description: "100% means every meditation enhanced my spirit.",
       val: parseFloat(
         meditationAggregates.latestForDashboard.stats.meditationEfficiency,
@@ -130,7 +140,7 @@ function StateOfBeingContent() {
       key: "~Time left",
       description:
         "Approximate number of days left in my life, assuming life span of 80.",
-      val: daysUntilNovember2074(),
+      val: daysUntilNovember2072(),
       descriptor: "days",
     },
   ];
@@ -156,6 +166,37 @@ function StateOfBeingContent() {
   );
 }
 
+function CurrentLocationContent() {
+  const { trip, timeAndOffset } = getLastTripAndEndCityTime();
+
+  return (
+    <div>
+      <p className={clsx("text-3xl font-bold")}>{trip.endCity}</p>
+      <p className="text-sm mt-2 opacity-50">Timezone: {timeAndOffset[2]}</p>
+    </div>
+  );
+}
+
+function CurrentJobComponent() {
+  return (
+    <div className="w-[80%] md:w-[90%]">
+      <p className={clsx("text-2xl font-bold")}>
+        Sr. Clojure Engineer at Status
+      </p>
+    </div>
+  );
+}
+
+function ClojureCourseContent() {
+  return (
+    <div className="w-[80%] md:w-[90%]">
+      <p className={clsx("text-2xl font-bold", "mt-2")}>
+        Tinycanva - Clojure for React Developers
+      </p>
+    </div>
+  );
+}
+
 const spotlightItems: Record<string, SpotlightBaseCardProps> = {
   openMeet: {
     title: "Open meet",
@@ -175,19 +216,25 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
   },
   currentLocation: {
     title: "Currently in",
+    contentComponent: CurrentLocationContent,
     icon: globeIcon,
     bgColorClass: "from-[#D3F4FF] to-[#A8E6FF]",
+    smallHeading: true,
   },
   currentJob: {
-    title: "Working at",
+    title: "Current job",
     icon: workbotIcon,
+    contentComponent: CurrentJobComponent,
     bgColorClass: "from-[#FFE7B7] to-[#FFE0A8]",
+    smallHeading: true,
     ctaLabel: "LinkedIn",
     ctaColorClass: "text-[#AC781C]",
   },
   clojureCourse: {
-    title: "Clojure course",
+    title: "Want to learn Clojure ?",
     icon: paperclipIcon,
+    smallHeading: true,
+    contentComponent: ClojureCourseContent,
     bgColorClass: "from-[#434343] to-[#000000]",
     textColorClass: "text-white",
     ctaLabel: "View course",

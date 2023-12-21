@@ -12,59 +12,59 @@
   margin-right: 1.5rem;
   display: inline-block;
   text-align: right;
-  color: rgba(115,138,148,.4)
+  color: rgba(115, 138, 148, 0.4);
 }
 
 /*----------------------------------*/
 .markdown pre.shiki {
-    font-size: 16px;
-    width: 90%;
-    margin: 0 auto;
-    padding: 16px;
-    border-radius: 4px;
-    overflow-x: auto;
+  font-size: 16px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 16px;
+  border-radius: 4px;
+  overflow-x: auto;
 }
 
-
 .markdown a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /*<img> followed by <em> is always an attribution*/
 /*first <em> is always cover attribution*/
-.markdown img + em, .markdown p:first-child > em {
-    font-size: 16px;
-    display: block;
+.markdown img + em,
+.markdown p:first-child > em {
+  font-size: 16px;
+  display: block;
 }
 
 .markdown img {
-    border-radius: 4px;
+  border-radius: 4px;
 }
 
 .markdown hr {
-    border: 0;
-    border-top: 1px solid #30404D;
-    height: 0px;
+  border: 0;
+  border-top: 1px solid #30404d;
+  height: 0px;
 }
 
 /*Maje shitz rekponsive*/
 @media screen and (min-width: 30em) and (max-width: 60em) {
-    /*Tachyons Medium -m*/
-    .markdown pre.shiki {
-	width: 80%;
-    }
+  /*Tachyons Medium -m*/
+  .markdown pre.shiki {
+    width: 80%;
+  }
 }
 
 @media screen and (min-width: 60em) {
-    /*Tachyons large*/
-    .markdown pre.shiki {
-	width: 50%;
-    }
+  /*Tachyons large*/
+  .markdown pre.shiki {
+    width: 50%;
+  }
 }
 
 /*inline code*/
 .markdown p code {
-    font-size: 16px;
-    background-color: #eee;
-    padding: 2px;
+  font-size: 16px;
+  background-color: #eee;
+  padding: 2px;
 }

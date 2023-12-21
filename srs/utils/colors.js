@@ -105,4 +105,4 @@ export default {
   VIOLET5: "#C274C2",
 
   WHITE: "#FFFFFF",
-}
+};

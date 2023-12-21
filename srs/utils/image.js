@@ -3,10 +3,10 @@
  * generate a map of optimized images and their paths
  */
 
-const getOptimizedBase = path => path.replace("/img", "/optimized-img")
+const getOptimizedBase = (path) => path.replace("/img", "/optimized-img");
 
-const getOptimizedPaths = path => {
-  const base = getOptimizedBase(path)
+const getOptimizedPaths = (path) => {
+  const base = getOptimizedBase(path);
   return {
     og: base + "/og.webp",
     w80: base + "/w-80.webp",
@@ -17,18 +17,16 @@ const getOptimizedPaths = path => {
     w720: base + "/w-720.webp",
     w960: base + "/w-960.webp",
     w1440: base + "/w-1440.webp",
-  }
-}
+  };
+};
 
-const getOgSrc = path => `${getOptimizedBase(path)}/og.webp`
+const getOgSrc = (path) => `${getOptimizedBase(path)}/og.webp`;
 
-const getSrcSet = path => {
-  const widths = [80, 240, 480, 720, 960, 1440]
-  const optimizedPaths = getOptimizedPaths(path)
+const getSrcSet = (path) => {
+  const widths = [80, 240, 480, 720, 960, 1440];
+  const optimizedPaths = getOptimizedPaths(path);
 
-  return widths
-    .map(w => `${optimizedPaths["w"+w]} ${w}w`)
-    .join(", ")
-}
+  return widths.map((w) => `${optimizedPaths["w" + w]} ${w}w`).join(", ");
+};
 
-export default {getOptimizedPaths, getOgSrc, getSrcSet}
+export default { getOptimizedPaths, getOgSrc, getSrcSet };
