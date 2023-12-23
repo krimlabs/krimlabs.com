@@ -7,6 +7,7 @@ const authors = contentIndex.authors;
 const posts = contentIndex.posts;
 const pages = contentIndex.pages;
 const tags = contentIndex.tags;
+const microPosts = contentIndex?.microPosts || contentIndex.microposts;
 
 type Tag = {
   slug: string;
@@ -102,11 +103,48 @@ function getLastTripAndEndCityTime(): {
 }
 
 function getAllPosts(): Post[] {
-  return Object.values(posts);
+  return Object.values(posts).filter((p) => p.publishedOn);
+}
+
+function getAllMicroPosts() {
+  return Object.values(microPosts);
+}
+
+function getAllTrips() {
+  return Object.values(trips);
+}
+
+function groupAndSortByYear(objects: any[]): { [year: number]: any[] } {
+  return objects.reduce(
+    (groupedByYear, obj) => {
+      const year = new Date(obj.publishedOn || obj.createdAt).getFullYear();
+
+      // Use an object spread to create a new object (avoid mutating the original)
+      const updatedGrouped = {
+        ...groupedByYear,
+        [year]: [...(groupedByYear[year] || []), obj],
+      };
+
+      return {
+        ...groupedByYear,
+        [year]: updatedGrouped[year].sort(
+          (a, b) =>
+            new Date(b.publishedOn || b.createdAt).getTime() -
+            new Date(a.publishedOn || a.createdAt).getTime()
+        ),
+      };
+    },
+    {} as { [year: number]: any[] }
+  );
 }
 
 function getTimeline(posts) {
-  return posts;
+  // order by created at and group by year
+  return groupAndSortByYear([
+    ...getAllPosts(),
+    ...getAllMicroPosts(),
+    ...getAllTrips(),
+  ]);
 }
 
 export { getLastTripAndEndCityTime, getAllPosts, getTimeline };
