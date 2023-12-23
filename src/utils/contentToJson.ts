@@ -6,7 +6,7 @@ const highlighter = await getHighlighter({ theme: 'monokai' });
 
 const content = await jdown(config.content.source, {
   markdown: {
-    hightlight: (code, lang) => highlighter.codeToHtml(code, lang),
+    highlight: (code, lang) => highlighter.codeToHtml(code, lang),
   },
   fileInfo: false,
 });

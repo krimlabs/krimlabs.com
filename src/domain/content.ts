@@ -147,4 +147,9 @@ function getTimeline(posts) {
   ]);
 }
 
-export { getLastTripAndEndCityTime, getAllPosts, getTimeline };
+function getAuthorBySlug(slug: string): Author {
+  return Object.values(authors).find((a: Author) => a.slug === slug);
+}
+
+export { getLastTripAndEndCityTime, getAllPosts, getTimeline, getAuthorBySlug };
+export type { Post, Author, Trip, Tag };

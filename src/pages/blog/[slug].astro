@@ -1,26 +1,22 @@
 ---
+import Nav from '@src/components/Nav';
+import Post from '@src/components/Post';
 import { getAllPosts } from '@src/domain/content';
-import { Image } from 'astro:assets';
+import BaseLayout from '@src/layouts/Base.astro';
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob('/content/posts/*.md');
+  const posts = getAllPosts();
   return posts.map((p) => {
-    return { params: { slug: p.frontmatter.slug }, props: { post: p } };
+    return { params: { slug: p.slug }, props: { post: p } };
   });
 }
 
-const { slug } = Astro.params;
 const { post } = Astro.props;
-const { Content } = post;
 ---
 
-<div>{slug}</div>
-<article>
-  <Image
-    src={post.frontmatter.heroImg}
-    alt={`${post.frontmatter.title} - Hero Image`}
-    width={1600}
-    height={900}
-  />
-  <Content />
-</article>
+<BaseLayout title={post.title}>
+  <article>
+    <Nav />
+    <Post post={post} />
+  </article>
+</BaseLayout>

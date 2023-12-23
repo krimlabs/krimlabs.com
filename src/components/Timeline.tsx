@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { getTimeline } from '@src/domain/content';
 import { convertDateString } from '@src/utils/time';
-import { time } from 'console';
 
 function PostLink({ title, slug, publishedOn }) {
   return (
@@ -82,7 +81,7 @@ function Timeline({}) {
         .sort((a, b) => b - a)
         .map((year) => {
           return (
-            <div>
+            <div key={year}>
               <div className="pl-8 font-bold text-xs opacity-60 mt-8">
                 {year}
               </div>
