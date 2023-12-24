@@ -1,11 +1,10 @@
+import React from 'react'
 import {
-  type Post as PostContentType,
-  type Author as AuthorContentType,
   getAuthorBySlug,
 } from '@src/domain/content';
-import type { ReactNode } from 'react';
 import Markdown from '@src/components/Markdown';
 import { convertDateString } from '@src/utils/time';
+import type { Post as PostContentType, Author as AuthorContentType } from '@contentlayer/generated'
 
 import image from '@src/utils/image';
 
@@ -121,7 +120,7 @@ function Post({ post }: PostProps) {
         </div>
       )}
 
-      <Markdown contents={contents} />
+      <Markdown post={post} />
 
       <div className="mx-auto w-10/12 md:w-8/12 lg:w-50">
         <div className="text-lg">

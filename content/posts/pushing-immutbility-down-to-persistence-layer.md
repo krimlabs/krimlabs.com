@@ -1,10 +1,10 @@
 ---
-publishedOn: null
+publishedOn: 
 title: A time machine inside your database
-subTitle: null
-canonicalUrl: null
+subTitle: '' 
+canonicalUrl: ''
 featured: false
-heroImg: null
+heroImg: '' 
 slug: a-time-machine-inside-your-db
 tags:
   - growth

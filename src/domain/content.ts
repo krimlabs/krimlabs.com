@@ -1,57 +1,8 @@
 import cityTimezones from 'city-timezones';
-import contentIndex from '@content/index.json';
+import { allPosts, allTrips, allMicroPosts, allAuthors, allTags } from '@contentlayer/generated';
+import type { Post, Trip, Author, Tag, MicroPost } from '@contentlayer/generated'
 import config from '@src/config';
-
-const trips = contentIndex.trips;
-const authors = contentIndex.authors;
-const posts = contentIndex.posts;
-const pages = contentIndex.pages;
-const tags = contentIndex.tags;
-const microPosts = contentIndex?.microPosts || contentIndex.microposts;
-
-type Tag = {
-  slug: string;
-  title: string;
-  icon?: string;
-  featured?: boolean;
-};
-
-type Author = {
-  slug: string;
-  name: string;
-  twitter?: string;
-  github?: string;
-  linkedin?: string;
-  medium?: string;
-  gpgKey?: string;
-  clubhouse?: string;
-  youtube?: string;
-  profilePicture: string;
-  shortBio: string;
-  body: string;
-};
-
-type Post = {
-  publishedOn?: string;
-  title: string;
-  subTitle?: string;
-  canonicalUrl?: string;
-  featured?: boolean;
-  heroImg: string;
-  slug: string;
-  tags: string[];
-  relatedSlugs?: string[];
-  author: string;
-  body: string;
-};
-
-type Trip = {
-  createdAt: string;
-  startCity: string;
-  startCountry: string;
-  endCity: string;
-  endCountry: string;
-};
+import contentlayerConfig from '../../contentlayer.config';
 
 type CityData = {
   city: string;
@@ -84,16 +35,16 @@ function getTimeInCityAndOffset(cityData: CityData): string[] {
 }
 
 function getLastTripAndEndCityTime(): {
-  trip: Trip;
+  trip: Trip
   timeAndOffset: string[];
 } {
-  const tripVals = Object.values(trips);
+  const trips = getAllTrips();
 
-  const lastTrip = tripVals.reduce((maxObject: Trip, currentObject: Trip) => {
+  const lastTrip = trips.reduce((maxObject: Trip, currentObject: Trip) => {
     const maxTimestamp = new Date(maxObject.createdAt).getTime();
     const currentTimestamp = new Date(currentObject.createdAt).getTime();
     return currentTimestamp > maxTimestamp ? currentObject : maxObject;
-  }, tripVals[0]);
+  }, trips[0]);
 
   const cityData = cityTimezones.lookupViaCity(lastTrip.endCity)[0];
   return {
@@ -103,21 +54,26 @@ function getLastTripAndEndCityTime(): {
 }
 
 function getAllPosts(): Post[] {
-  return Object.values(posts).filter((p) => p.publishedOn);
+  return allPosts.filter((p: Post) => p.publishedOn);
 }
 
-function getAllMicroPosts() {
-  return Object.values(microPosts);
+function getAllMicroPosts(): MicroPost[] {
+  return allMicroPosts
 }
 
-function getAllTrips() {
-  return Object.values(trips);
+function getAllTrips(): Trip[] {
+  return allTrips
 }
 
-function groupAndSortByYear(objects: any[]): { [year: number]: any[] } {
+function getAllAuthors(): Author[] {
+  return allAuthors
+}
+
+export type TimelineItem = (Post | MicroPost | Trip)
+function groupAndSortByYear(objects: TimelineItem[]): { [year: number]: TimelineItem[] } {
   return objects.reduce(
     (groupedByYear, obj) => {
-      const year = new Date(obj.publishedOn || obj.createdAt).getFullYear();
+      const year: number = new Date(obj.publishedOn || obj.createdAt).getFullYear();
 
       // Use an object spread to create a new object (avoid mutating the original)
       const updatedGrouped = {
@@ -128,7 +84,7 @@ function groupAndSortByYear(objects: any[]): { [year: number]: any[] } {
       return {
         ...groupedByYear,
         [year]: updatedGrouped[year].sort(
-          (a, b) =>
+          (a: TimelineItem, b: TimelineItem) =>
             new Date(b.publishedOn || b.createdAt).getTime() -
             new Date(a.publishedOn || a.createdAt).getTime()
         ),
@@ -137,8 +93,7 @@ function groupAndSortByYear(objects: any[]): { [year: number]: any[] } {
     {} as { [year: number]: any[] }
   );
 }
-
-function getTimeline(posts) {
+function getTimeline(): Record<number, TimelineItem[]> {
   // order by created at and group by year
   return groupAndSortByYear([
     ...getAllPosts(),
@@ -148,7 +103,7 @@ function getTimeline(posts) {
 }
 
 function getAuthorBySlug(slug: string): Author {
-  return Object.values(authors).find((a: Author) => a.slug === slug);
+  return getAllAuthors().find((a: Author) => a.slug === slug);
 }
 
 export { getLastTripAndEndCityTime, getAllPosts, getTimeline, getAuthorBySlug };
