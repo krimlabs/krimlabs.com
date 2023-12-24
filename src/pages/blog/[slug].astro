@@ -16,7 +16,9 @@ const { post } = Astro.props;
 
 <BaseLayout title={post.title}>
   <article>
-    <Nav />
+    <div class="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
+      <Nav />
+    </div>
     <Post post={post} />
   </article>
 </BaseLayout>

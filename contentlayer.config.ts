@@ -1,6 +1,21 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
-import { marked } from 'marked'
+import { Marked } from 'marked'
+import { markedHighlight } from 'marked-highlight';
 import { getHighlighter } from 'shiki';
+
+const marked = new Marked(
+  markedHighlight({
+    async: true,
+    async highlight(code, lang, _info) {
+
+      const highlighter = await getHighlighter({ theme: 'monokai' })
+      console.log({
+        code, lang, _info, out: highlighter.codeToHtml(code, lang)
+      })
+      return highlighter.codeToHtml(code, lang)
+    }
+  })
+)
 
 const Tag = defineDocumentType(() => ({
   name: 'Tag',
@@ -29,12 +44,6 @@ const Author = defineDocumentType(() => ({
     profilePicture: { type: 'string', required: true },
     shortBio: { type: 'string', require: true },
   },
-  computedFields: {
-    parsedMd: {
-      type: 'string',
-      resolve: (doc) => marked.parse(doc.body.raw)
-    }
-  }
 }));
 
 const Post = defineDocumentType(() => ({
@@ -58,7 +67,9 @@ const Post = defineDocumentType(() => ({
   computedFields: {
     parsedMd: {
       type: 'string',
-      resolve: (doc) => marked.parse(doc.body.raw)
+      resolve: (doc) => {
+        return marked.parse(doc.body.raw)
+      }
     }
   }
 }));
@@ -87,13 +98,5 @@ const MicroPost = defineDocumentType(() => ({
 }));
 
 export default makeSource({
-  mdx: {
-    remarkPlugins: [{
-      highlight: async (code, lang) => {
-
-        const highlighter = await getHighlighter({ theme: 'monokai' })
-        return highlighter.codeToHtml(code, lang)
-      }
-    }]
-  }, contentDirPath: 'content', documentTypes: [Post, MicroPost, Trip, Tag, Author], disableImportAliasWarning: true, contentDirExclude: ["pages"]
+  contentDirPath: 'content', documentTypes: [Post, MicroPost, Trip, Tag, Author], disableImportAliasWarning: true, contentDirExclude: ["pages"],
 })

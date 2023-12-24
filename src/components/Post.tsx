@@ -7,6 +7,7 @@ import { convertDateString } from '@src/utils/time';
 import type { Post as PostContentType, Author as AuthorContentType } from '@contentlayer/generated'
 
 import image from '@src/utils/image';
+import str from '@src/utils/string'
 
 const shareUrls = {
   twitter: (link = '', message = '') =>
@@ -55,7 +56,7 @@ function Share({ title, url }: { title: string; url: string }) {
 
 const AuthorImage = ({ profilePicture, name }: AuthorContentType) => {
   const optimizedPaths = image.getOptimizedPaths(profilePicture);
-  return <img src={optimizedPaths.w80} className="br-100" alt={name} />;
+  return <img src={optimizedPaths.w80} className="rounded-full w-[48px] h-[48px]" alt={name} />;
 };
 
 const Author = ({
@@ -67,14 +68,14 @@ const Author = ({
 }) => {
   const author = getAuthorBySlug(slug);
   return (
-    <div className="flex mt4 items-center justify-between">
+    <div className="flex mt-4 items-center justify-between">
       <div className="flex items-center">
-        <div className="w3">
+        <div className="w-[56px]">
           <AuthorImage {...author} />
         </div>
-        <div className="pl2">
-          <div className="b f6">{author.name}</div>
-          <div className="f7 mt1 bp3-text-muted mb2">
+        <div className="pt-1">
+          <div className="font-bold text-sm">{author.name}</div>
+          <div className="text-sm opacity-60 mb-2">
             {convertDateString(publishedOn)}
           </div>
         </div>
@@ -86,6 +87,24 @@ const Author = ({
 interface PostProps {
   post: PostContentType;
 }
+
+function parse(url: string): string {
+  if (url.includes("medium.com")) return "Medium";
+  else if (url.includes("newline.co")) return "Newline";
+  else return url;
+};
+
+
+function CanonicalRef({ canonicalUrl }) {
+  return (
+    <div className="mt-3 bg-black/10 p-2 rounded">
+      This blog was originally published on{" "}
+      <a href={canonicalUrl} className="underline">
+        {str.capitalise(parse(canonicalUrl))}.
+      </a>
+    </div>
+  );
+};
 
 function Post({ post }: PostProps) {
   const {
@@ -100,18 +119,18 @@ function Post({ post }: PostProps) {
     contents,
   } = post;
   return (
-    <div>
+    <div className='pb-12'>
       <div className="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
-        <h1 className="text-3xl md:text-2xl lg:text-4xl font-bold mt-5">
+        <h1 className="text-3xl md:text-2xl lg:text-4xl font-bold mt-5 mb-2">
           {title}
         </h1>
         {subTitle && (
-          <h2 className="text-lg md:text-xl lg:text-3xl text-black-80 mt-1 mb-2 text-muted">
+          <h2 className="text-lg md:text-xl lg:text-3xl text-black-80 mt-2 mb-3 opacity-60">
             {subTitle}
           </h2>
         )}
         <Author slug={author} publishedOn={publishedOn} />
-        <Share title={title} url={`https://krimlabs.com/blog/${slug}`} />
+        {/* <Share title={title} url={`https://krimlabs.com/blog/${slug}`} /> */}
       </div>
 
       {heroImg && (
@@ -122,20 +141,20 @@ function Post({ post }: PostProps) {
 
       <Markdown post={post} />
 
-      <div className="mx-auto w-10/12 md:w-8/12 lg:w-50">
+      <div className="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
         <div className="text-lg">
-          {/* {canonicalUrl && <CanonicalRef canonicalUrl={canonicalUrl} />} */}
+          {canonicalUrl && <CanonicalRef canonicalUrl={canonicalUrl} />}
 
-          <div>
-            <div className="uppercase text-xs font-semibold mb-3">
-              Share this post
-            </div>
-            <Share title={title} url={`https://krimlabs.com/blog/${slug}`} />
-          </div>
+          {/* <div> */}
+          {/*   <div className="uppercase text-xs font-semibold mb-3"> */}
+          {/*     Share this post */}
+          {/*   </div> */}
+          {/*   <Share title={title} url={`https://krimlabs.com/blog/${slug}`} /> */}
+          {/* </div> */}
         </div>
         {/* {relatedPosts.length > 0 && <Related relatedPosts={relatedPosts} />} */}
       </div>
-    </div>
+    </div >
   );
 }
 

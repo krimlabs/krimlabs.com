@@ -17,12 +17,11 @@
     "date-fns": "^3.0.6",
     "decap-server": "^3.0.1",
     "htmr": "^1.0.2",
-    "jdown": "1.0.3",
     "marked": "^11.1.0",
+    "marked-highlight": "^2.1.0",
     "ramda": "^0.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rehype-highlight": "^7.0.0",
     "shiki": "0.9.3",
     "tailwindcss": "^3.3.6",
     "usehooks-ts": "^2.9.1"
@@ -39,8 +38,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "local-cms": "PORT=9999 bun run decap-server",
-    "index-content": "bun src/utils/contentToJson.ts"
+    "local-cms": "PORT=9999 bun run decap-server"
   },
   "type": "module"
 }

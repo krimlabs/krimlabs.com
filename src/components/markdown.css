@@ -19,7 +19,7 @@
   .markdown pre.shiki {
     font-size: 16px;
     width: 90%;
-    margin: 0 auto;
+    margin: 16px auto 0 auto;
     padding: 16px;
     border-radius: 4px;
     overflow-x: auto;
@@ -33,7 +33,6 @@
   /*first <em> is always cover attribution*/
   .markdown img + em,
   .markdown p:first-child > em {
-    font-size: 16px;
     display: block;
   }
   

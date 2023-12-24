@@ -1,14 +1,11 @@
 import React from 'react'
-import { getHighlighter } from 'shiki';
 import clsx from 'clsx';
 import type { PropsWithChildren } from 'react';
 import convert from 'htmr';
 
-
 import type { Post } from '@contentlayer/generated'
 import '@src/components/markdown.css';
 
-const highlighter = await getHighlighter({ theme: 'monokai' })
 const transform = {
   p: ({ children }: PropsWithChildren) => {
     const el = children[0];
@@ -26,18 +23,6 @@ const transform = {
         {children}
       </p>
     );
-  },
-  code: ({ children, className }: PropsWithChildren<{ className: string }>) => {
-    if (className) {
-      const language = className.split('-')[1]
-      return <code>
-        {(children || []).map(c => highlighter.codeToHtml(c, language)).map(c => <div dangerouslySetInnerHTML={{ __html: c }} />)}
-      </code>
-    } else {
-      return <code>
-        {children}
-      </code>
-    }
   },
   h1: ({ children }: PropsWithChildren) => (
     <h1 className={
@@ -110,10 +95,13 @@ const transform = {
       />
     );
   },
+  em: ({ children }: PropsWithChildren) => {
+    return <em className='mt-2 mb-4 text-sm opacity-60'>{children}</em>
+  }
 };
 
 function Markdown(props: PropsWithChildren<{ post: Post }>) {
-  const html = props.post.body.html
+  const html = props.post.parsedMd
   return (
     <div className="markdown break-words">
       {convert(html, { transform })}
