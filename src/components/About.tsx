@@ -1,6 +1,6 @@
 function About() {
   return (
-    <div className="ml-8 mb-8">
+    <div className="md:ml-8 mb-8">
       <h2 className="font-bold texl-lg">About</h2>
       <p className="opacity-60 mt-2">
         Hi, I'm Shivek, and Krim Labs is my interface to the digital world.

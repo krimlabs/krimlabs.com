@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import React from "react";
 
 import Spotlight from "@src/components/Spotlight";
 import Timeline from '@src/components/Timeline';
@@ -17,7 +18,7 @@ function Index() {
           className={clsx(
             'flex-grow',
             'break-words',
-            'p-4'
+            'md:p-4'
             //"border border-red-800",
           )}
         >

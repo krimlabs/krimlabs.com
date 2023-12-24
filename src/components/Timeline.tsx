@@ -15,7 +15,6 @@ function PostLink(props: PropsWithChildren<{ post: Post }>) {
           className={clsx(
             'w-3/12',
             'text-xs opacity-60',
-            'pl-8',
             'group-hover:opacity-90'
           )}
         >
@@ -45,7 +44,6 @@ function TripLog(props: PropsWithChildren<{ trip: Trip }>) {
         className={clsx(
           'w-3/12',
           'text-xs opacity-60',
-          'pl-8',
           'group-hover:opacity-90'
         )}
       >
@@ -66,7 +64,6 @@ function MicroPostLog(props: PropsWithChildren<{ microPost: MicroPost }>) {
         className={clsx(
           'w-3/12',
           'text-xs opacity-60',
-          'pl-8',
           'group-hover:opacity-90'
         )}
       >
@@ -88,8 +85,8 @@ function Timeline({ }) {
         .sort((a: string, b: string) => parseInt(b) - parseInt(a))
         .map((year: string) => {
           return (
-            <div key={year}>
-              <div className="pl-8 font-bold text-xs opacity-60 mt-8">
+            <div key={year} className='pl-0 md:pl-8'>
+              <div className="font-bold text-xs opacity-60 mt-8">
                 {year}
               </div>
               {timelineItems[year].map((t: TimelineItem) => {
