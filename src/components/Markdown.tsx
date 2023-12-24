@@ -15,7 +15,7 @@ const transform = {
       el.props.hasOwnProperty('src');
     return (
       <p
-        className={clsx('mx-auto', {
+        className={clsx('mx-auto', 'mt-6', ' text-lg leading-relaxed', {
           'text-center': isElImg,
           'w-10/12 md:w-8/12 lg:w-6/12': !isElImg,
         })}

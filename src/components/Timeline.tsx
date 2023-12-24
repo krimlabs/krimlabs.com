@@ -93,7 +93,6 @@ function Timeline({ }) {
                 {year}
               </div>
               {timelineItems[year].map((t: TimelineItem) => {
-                console.log({ context: [t.slug, t.subTitle, t.startCity] })
                 if (t.hasOwnProperty('slug') && t.hasOwnProperty('featured') && t.hasOwnProperty('heroImg')) {
                   return <PostLink key={t.slug || t.title} post={t} />;
                 } else if (t.hasOwnProperty('startCity')) {
@@ -101,7 +100,6 @@ function Timeline({ }) {
                     <TripLog key={`${t.createdAt}-${t.startCity}`} trip={t} />
                   );
                 } else if (t.hasOwnProperty('slug') && !t.hasOwnProperty('heroImg')) {
-                  console.log(Object.keys(t))
                   return <MicroPostLog key={t.slug} microPost={t} />;
                 }
               })}

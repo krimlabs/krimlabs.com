@@ -1,8 +1,23 @@
 ---
-import BaseLayout from '@src/layouts/Base.astro';
+import Seo from '@src/components/Seo';
+import HtmlLayout from '@src/layouts/Base.astro';
+import BodyLayout from '@src/layouts/Base.astro';
+import HeadLayout from '@src/layouts/Base.astro';
 import IndexContainer from '@src/containers/Index';
 ---
 
-<BaseLayout title={'Krim Labs'}>
-  <IndexContainer />
-</BaseLayout>
+<HtmlLayout>
+  <HeadLayout>
+    <Seo
+      title={'Krim Labs'}
+      subTitle={'Hi, my name is Shivek. Krim is my interface to the world.'}
+      tags={'Krim Labs, krim, labs, shivek khurana, shivek, clojure'}
+      authorName={'Shivek Khurana'}
+      heroImg={'https://krimlabs.com/img/og.png'}
+    />
+  </HeadLayout>
+
+  <BodyLayout>
+    <IndexContainer />
+  </BodyLayout>
+</HtmlLayout>
