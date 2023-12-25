@@ -9,7 +9,8 @@ function Nav() {
             <img
               src={'/img/logo.svg'}
               alt="Krim Labs Logo Purple"
-              width={216}
+              width={160}
+              height={46.3}
             />
           </div>
         </a>
