@@ -9,9 +9,6 @@ const marked = new Marked(
     async highlight(code, lang, _info) {
 
       const highlighter = await getHighlighter({ theme: 'monokai' })
-      console.log({
-        code, lang, _info, out: highlighter.codeToHtml(code, lang)
-      })
       return highlighter.codeToHtml(code, lang)
     }
   })

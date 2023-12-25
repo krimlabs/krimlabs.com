@@ -1,19 +1,19 @@
-const sharp = require("sharp");
-const path = require("path");
-const { promises: fs } = require("fs");
+const sharp = require('sharp');
+const path = require('path');
+const { promises: fs } = require('fs');
 
-const R = require("ramda");
+const R = require('ramda');
 
-const sourceDir = "public/img";
-const destDir = "public/optimized-img";
+const sourceDir = 'public/img';
+const destDir = 'public/optimized-img';
 
 const notEndsWith = (extension) =>
   R.filter((node) => R.not(R.endsWith(extension, node)));
 
 const filterUnwantedExtensions = R.compose(
-  notEndsWith(".svg"),
-  notEndsWith(".gif"),
-  notEndsWith(".DS_Store"),
+  notEndsWith('.svg'),
+  notEndsWith('.gif'),
+  notEndsWith('.DS_Store')
 );
 
 const walkDirs = (source) =>
@@ -34,9 +34,9 @@ const lsFiles = async (source) => {
 };
 
 const computePathAndName = R.map((f) => {
-  const components = f.split("/");
+  const components = f.split('/');
   return {
-    filePath: R.join("/", R.dropLast(1, components)),
+    filePath: R.join('/', R.dropLast(1, components)),
     name: R.last(components),
   };
 });
@@ -45,7 +45,7 @@ const appendOptimizedPath = R.map((pathAndName) => ({
   ...pathAndName,
   optimizedPath: path.join(
     R.replace(sourceDir, destDir, pathAndName.filePath),
-    pathAndName.name,
+    pathAndName.name
   ),
 }));
 
@@ -59,7 +59,7 @@ const tentativeOptimizedPaths = (imgFiles) => {
  * and return just the path
  */
 const stripFileNames = (processedImgFiles) => {
-  const txf = R.compose(R.join("/"), R.dropLast(1), R.split("/"));
+  const txf = R.compose(R.join('/'), R.dropLast(1), R.split('/'));
   return R.uniq(R.map(txf, processedImgFiles));
 };
 
@@ -68,7 +68,7 @@ const filesToProcess = (imgFiles, processedImgFiles) => {
   const existingOptimizedPaths = stripFileNames(processedImgFiles);
   return R.filter(
     (c) => R.not(R.includes(c.optimizedPath, existingOptimizedPaths)),
-    computedOutComponents,
+    computedOutComponents
   );
 };
 
@@ -81,7 +81,7 @@ const processFile = async (component) => {
 
   // convert image to webp format in highest quality
   const inputSharp = sharp(path.join(component.filePath, component.name));
-  const ogWebpPath = path.join(component.optimizedPath, "og.webp");
+  const ogWebpPath = path.join(component.optimizedPath, 'og.webp');
   await inputSharp.toFile(ogWebpPath);
 
   // convert og.webp to desired widths
@@ -92,25 +92,26 @@ const processFile = async (component) => {
       await ogSharp.clone().resize({ width }).toFile(widthPath);
 
       // blur if needed
-      if (R.contains(width, widthsToBlur)) {
+      if (R.includes(width, widthsToBlur)) {
         await sharp(widthPath)
           .blur(8)
           .toFile(
-            path.join(component.optimizedPath, `w-${width}-blurred.webp`),
+            path.join(component.optimizedPath, `w-${width}-blurred.webp`)
           );
       }
-    }, widthsToGenerate),
+    }, widthsToGenerate)
   );
 };
 
 async function main() {
   const imgFiles = await lsFiles(sourceDir);
+  console.log(`💧 Found ${imgFiles.length} source images`);
   const processedImgFiles = await lsFiles(destDir);
-  const unprocessedImageFiles = filesToProcess(imgFiles, processedImgFiles);
-
+  const unprocessedImgFiles = filesToProcess(imgFiles, processedImgFiles);
+  console.log(`🪣 ${unprocessedImgFiles.length} images need to be processed`);
   try {
-    await Promise.all(R.map(await processFile, unprocessedImageFiles));
-    console.log("Images optimized successfully!");
+    await Promise.all(R.map(await processFile, unprocessedImgFiles));
+    console.log('✅ Images optimized successfully!');
   } catch (e) {
     console.error(e);
   }
