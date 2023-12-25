@@ -34,6 +34,7 @@ type SpotlightBaseCardProps = {
   contentComponent: React.ComponentType<any>;
   icon: string;
   smallHeading?: boolean;
+  ctaArrow?: 'out' | 'right';
   ctaLabel?: string;
   ctaColorClass?: string;
   textColorClass?: string | "";
@@ -73,9 +74,27 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
         {props.title}
       </h2>
       <div>{Content && <Content />}</div>
-      <div className={clsx(props.ctaColorClass, "font-bold text-xl", "mt-3")}>
-        {props.ctaLabel}
-      </div>
+      {props.ctaLabel &&
+        <div className={clsx(props.ctaColorClass, "font-bold text-xl", "mt-3", 'flex items-center')}>
+          <div>
+
+            {props.ctaLabel}
+          </div>
+          <div className='ml-1'>
+            {props.ctaArrow === 'right' &&
+
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            }
+            {props.ctaArrow === 'out' &&
+
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+              </svg>
+            }
+          </div>
+        </div>}
     </div>
   );
 }
@@ -203,6 +222,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     bgColorClass: 'from-[#ebffd3] to-[#ccffa8]',
     ctaLabel: 'Meet me',
     ctaColorClass: 'text-[#3D6520]',
+    ctaArrow: 'out'
   },
   stateOfBeing: {
     title: 'State of being',
@@ -211,6 +231,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     bgColorClass: 'from-[#D9D3FF] to-[#C0B6FC]',
     ctaLabel: 'View Dashboard',
     ctaColorClass: 'text-[#6157A1]',
+    ctaArrow: 'right'
   },
   currentLocation: {
     title: 'Currently in',
@@ -227,6 +248,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     smallHeading: true,
     ctaLabel: 'LinkedIn',
     ctaColorClass: 'text-[#AC781C]',
+    ctaArrow: 'out'
   },
   clojureCourse: {
     title: 'Want to learn Clojure ?',
@@ -237,6 +259,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     textColorClass: 'text-white',
     ctaLabel: 'View course',
     ctaColorClass: 'text-[#E5A3A6]',
+    ctaArrow: 'out'
   },
 };
 
