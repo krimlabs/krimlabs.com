@@ -11,7 +11,7 @@ interface OptimizedPaths {
 }
 
 function getOptimizedBase(path: string): string {
-  return path.replace('/img', '/optimized-img');
+  return path.replace('img/', 'optimized-img/');
 }
 
 function getOptimizedPaths(path: string): OptimizedPaths {
@@ -41,6 +41,7 @@ function getSrcSet(path: string): string {
 }
 
 export default {
+  getOptimizedBase,
   getOptimizedPaths,
   getOgSrc,
   getSrcSet,

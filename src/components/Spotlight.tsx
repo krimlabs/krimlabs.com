@@ -1,15 +1,11 @@
 import clsx from "clsx";
+import React from "react";
 
 import { fetchWorkoutStats } from "@src/domain/workouts";
 import { fetchMeditationAggregates } from "@src/domain/meditations";
 import { fetchSleepAggregates } from "@src/domain/sleep";
 import { getLastTripAndEndCityTime } from "@src/domain/content";
-
-import orbIcon from "@src/img/spotlightIcons/orb.png";
-import globeIcon from "@src/img/spotlightIcons/globe.png";
-import paperclipIcon from "@src/img/spotlightIcons/paperclip.png";
-import workbotIcon from "@src/img/spotlightIcons/workbot.png";
-import saladBowlIcon from "@src/img/spotlightIcons/salad-bowl.png";
+import Img from '@src/components/Img'
 
 const workoutStats = await fetchWorkoutStats();
 const meditationAggregates = await fetchMeditationAggregates();
@@ -36,7 +32,7 @@ type SpotlightBaseCardProps = {
   bgColorClass: string;
   title: string;
   contentComponent: React.ComponentType<any>;
-  icon: any;
+  icon: string;
   smallHeading?: boolean;
   ctaLabel?: string;
   ctaColorClass?: string;
@@ -58,8 +54,10 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
       )}
     >
       <div className="flex justify-end">
-        <img
-          src={props.icon.src}
+        <Img
+          path={props.icon}
+          alt={`${props.title} icon`}
+          defaultWidth={240}
           className={clsx(
             "mr-[-12%] sm:mr-[-10%] md:mr-[-24%] mb-[-48%]",
             "h-[96px] w-[96px]",
@@ -118,8 +116,8 @@ function StateOfBeingContent() {
       description: "100% means recording of 2 observations per day.",
       val: (
         (meditationAggregates.latestForDashboard.stats.numObservations * 100) /
-        // target two observations per day
-        (meditationAggregates.latestForDashboard.currentDay * 2)
+        // target three observations per day
+        (meditationAggregates.latestForDashboard.currentDay * 3)
       ).toFixed(0),
       descriptor: "%",
     },
@@ -134,7 +132,7 @@ function StateOfBeingContent() {
     {
       key: "Sleep",
       description: "Sleep is a combination of various factors",
-      val: sleepAggregates.latest.sleepIndex,
+      val: sleepAggregates.latest.sleepIndex.toFixed(2),
     },
     {
       key: "~Time left",
@@ -201,7 +199,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
   openMeet: {
     title: 'Open meet',
     contentComponent: OpenMeetContent,
-    icon: saladBowlIcon,
+    icon: '/img/spotlightIcons/salad-bowl.png',
     bgColorClass: 'from-[#ebffd3] to-[#ccffa8]',
     ctaLabel: 'Meet me',
     ctaColorClass: 'text-[#3D6520]',
@@ -209,7 +207,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
   stateOfBeing: {
     title: 'State of being',
     contentComponent: StateOfBeingContent,
-    icon: orbIcon,
+    icon: '/img/spotlightIcons/orb.png',
     bgColorClass: 'from-[#D9D3FF] to-[#C0B6FC]',
     ctaLabel: 'View Dashboard',
     ctaColorClass: 'text-[#6157A1]',
@@ -217,13 +215,13 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
   currentLocation: {
     title: 'Currently in',
     contentComponent: CurrentLocationContent,
-    icon: globeIcon,
+    icon: '/img/spotlightIcons/globe.png',
     bgColorClass: 'from-[#D3F4FF] to-[#A8E6FF]',
     smallHeading: true,
   },
   currentJob: {
     title: 'Current job',
-    icon: workbotIcon,
+    icon: '/img/spotlightIcons/workbot.png',
     contentComponent: CurrentJobComponent,
     bgColorClass: 'from-[#FFE7B7] to-[#FFE0A8]',
     smallHeading: true,
@@ -232,7 +230,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
   },
   clojureCourse: {
     title: 'Want to learn Clojure ?',
-    icon: paperclipIcon,
+    icon: '/img/spotlightIcons/paperclip.png',
     smallHeading: true,
     contentComponent: ClojureCourseContent,
     bgColorClass: 'from-[#434343] to-[#000000]',

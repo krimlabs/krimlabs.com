@@ -1,5 +1,7 @@
 const R = require("ramda");
 
+import { describe, expect, it, beforeAll } from "bun:test"
+
 const {
   filterUnwantedExtensions,
   computePathAndName,
@@ -10,7 +12,7 @@ const {
   filesToProcess,
 } = require("./optimize-img");
 
-beforeAll(async () => {});
+beforeAll(async () => { });
 
 describe("filterUnwantedExtensions()", () => {
   it("should remove .DS_Store, .svg and .gif files from list of files", () => {

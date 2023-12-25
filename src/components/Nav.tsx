@@ -1,4 +1,3 @@
-import logo from '@src/img/logo.svg';
 import clsx from 'clsx';
 
 function Nav() {
@@ -7,7 +6,11 @@ function Nav() {
       <div>
         <a href="/">
           <div className="">
-            <img src={logo.src} alt="Krim Labs Logo Purple" width={216} />
+            <img
+              src={'/img/logo.svg'}
+              alt="Krim Labs Logo Purple"
+              width={216}
+            />
           </div>
         </a>
         <div className="font-bold text-gray-600">{`kr-eee-mm`}</div>

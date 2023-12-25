@@ -19,6 +19,7 @@
     "htmr": "^1.0.2",
     "marked": "^11.1.0",
     "marked-highlight": "^2.1.0",
+    "npm-run-all": "^4.1.5",
     "ramda": "^0.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -33,12 +34,16 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
+    "dev:astro": "astro dev",
+    "build:astro": "astro build",
+    "preview:astro": "astro preview",
     "astro": "astro",
-    "local-cms": "PORT=9999 bun run decap-server"
+    "dev:cms": "PORT=9999 bun run decap-server",
+    "dev:contentlayer": "bun run contentlayer dev --verbose",
+    "build:contentlayer": "bun run contentlayer build --verbose",
+    "build:img": "bun run optimize-img.js",
+    "dev": "run-p dev:*",
+    "build": "run-s build:contentlayer build:img build:astro"
   },
   "type": "module"
 }
