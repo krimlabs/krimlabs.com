@@ -145,13 +145,13 @@ function StateOfBeingContent() {
       description: "100% means every meditation enhanced my spirit.",
       val: parseFloat(
         meditationAggregates.latestForDashboard.stats.meditationEfficiency,
-      ),
+      ).toFixed(0),
       descriptor: "%",
     },
     {
       key: "Sleep",
       description: "Sleep is a combination of various factors",
-      val: sleepAggregates.latest.sleepIndex.toFixed(2),
+      val: sleepAggregates.latest.sleepIndex.toFixed(0),
     },
     {
       key: "~Time left",
