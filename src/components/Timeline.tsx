@@ -57,12 +57,12 @@ function BaseTimelineLog(props: PropsWithChildren<{ t: TimelineItem }>) {
     <div className={clsx('flex items-center', 'group')}>
       <div
         className={clsx(
-          'w-3/12',
+          'w-2/12',
           'text-xs opacity-60',
           'group-hover:opacity-90'
         )}
       >
-        {convertDateString(t.createdAt || t.publishedOn)}
+        {convertDateString(t.createdAt || t.publishedOn).split(',')[0]}
       </div>
       <div className='w-1/12'>
         <img src={getSrc(t.type)} alt={`${t.type} icon`} className={clsx('w-6 h-6', 'opacity-50 group-hover:opacity-90')} />
@@ -85,7 +85,7 @@ function ComputedComp(props: PropsWithChildren<{ t: TimelineItem }>) {
   }
 }
 
-function TimelineLog(
+function TimelineLogs(
   props: PropsWithChildren<{ timelineItems: TimelineItem[]; year: string }>
 ) {
   const { timelineItems, year } = props;
@@ -115,7 +115,7 @@ function Timeline({ }) {
           return (
             <div key={year} className="pl-0 md:pl-8">
               <div className="font-bold text-xs opacity-60 mt-8">{year}</div>
-              <TimelineLog year={year} timelineItems={timelineItems} />
+              <TimelineLogs year={year} timelineItems={timelineItems} />
             </div>
           );
         })}

@@ -1,14 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Group</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="concept---links-on-home-page" transform="translate(-598.000000, -727.000000)">
-            <g id="Group" transform="translate(598.000000, 727.000000)">
-                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
-                <path d="M4,20 L8,20 L18.5,9.5 C19.2145312,8.78546882 19.4935874,7.74401693 19.2320508,6.76794918 C18.9705143,5.79188142 18.2081186,5.02948572 17.2320508,4.76794916 C16.2559831,4.5064126 15.2145312,4.7854688 14.5,5.5 L4,16 L4,20" id="Path" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" id="Path" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
-                <polyline id="Path" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="19 16 17 19 21 19 19 22"></polyline>
-            </g>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
 </svg>
