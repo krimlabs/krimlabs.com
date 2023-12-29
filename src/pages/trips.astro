@@ -1,0 +1,11 @@
+---
+import IndexBase from '@src/layouts/IndexBase.astro';
+
+import Timeline from '@src/components/Timeline';
+import { getTimelineTrips } from '@src/domain/content';
+const timelineItems = getTimelineTrips();
+---
+
+<IndexBase>
+  <Timeline timelineItems={timelineItems} filter="Trips" />
+</IndexBase>

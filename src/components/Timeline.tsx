@@ -1,7 +1,6 @@
 import clsx from 'clsx';
-import React from 'react';
+import { useState } from 'react';
 import type { PropsWithChildren } from 'react';
-import { getTimeline } from '@src/domain/content';
 import { convertDateString } from '@src/utils/time';
 import { Post, MicroPost, Trip } from '@contentlayer/generated';
 import type { TimelineItem } from '@src/domain/content';
@@ -105,10 +104,42 @@ function TimelineLogs(
   );
 }
 
-function Timeline({ }) {
-  const timelineItems = getTimeline();
+function Filters(props: { selected: string }) {
+  const types = ['All', 'Posts', 'Trips', 'Micro']
+  return (
+    <div className={clsx('flex', 'mt-4 md:mt-0 md:ml-8')}>
+      {types.map(t => {
+        const thisSelected = props.selected === t
+        return <a
+          href={`/${t === 'All' ? "" : t.toLowerCase()}`}
+          key={t}
+        >
+          {thisSelected &&
+            <div className={clsx(
+              'w-12 h-12 rounded-full',
+              'bg-gradient-to-r from-pink-200 to-yellow-400 blur-lg'
+            )} />}
+
+          <div className={clsx(
+            { 'border border-gray-300': !thisSelected },
+            'rounded',
+            'px-5 py-1 mr-4',
+            'font-bold text-sm',
+            'cursor-pointer',
+            { "bg-black text-white border-black": thisSelected },
+            { 'backdrop-blur-md -mt-12': thisSelected })}>
+            {t}
+          </div>
+        </a>
+      })}
+    </div>
+  );
+}
+
+function Timeline({ timelineItems, filter }: { timelineItems: Record<number, TimelineItem[]>, filter: string }) {
   return (
     <section className="selection:bg-fuchsia-300 selection:text-fuchsia-900">
+      <Filters selected={filter} />
       {Object.keys(timelineItems)
         .sort((a: string, b: string) => parseInt(b) - parseInt(a))
         .map((year: string) => {

@@ -1,0 +1,45 @@
+---
+import Seo from '@src/components/Seo';
+import HtmlLayout from '@src/layouts/Html.astro';
+import BodyLayout from '@src/layouts/Body.astro';
+import HeadLayout from '@src/layouts/Head.astro';
+
+import clsx from 'clsx';
+import Spotlight from '@src/components/Spotlight';
+import Timeline from '@src/components/Timeline';
+import About from '@src/components/About';
+import Nav from '@src/components/Nav';
+---
+
+<HtmlLayout>
+  <HeadLayout>
+    <Seo
+      title={'Krim Labs'}
+      subTitle={'Hi, my name is Shivek. Krim is my interface to the world.'}
+      tags={'Krim Labs, krim, labs, shivek khurana, shivek, clojure'}
+      authorName={'Shivek Khurana'}
+      heroImg={'/img/og.png'}
+    />
+  </HeadLayout>
+
+  <BodyLayout>
+    <div class={clsx('w-11/12 mx-auto lg:w-8/12 xl:w-6/12', '')}>
+      <Nav />
+      <div class={clsx('flex flex-col md:flex-row', '')}>
+        <aside class={clsx('w-full md:w-[320px] flex-shrink-0', 'pr-4')}>
+          <Spotlight />
+        </aside>
+        <main
+          class={clsx(
+            'flex-grow',
+            'break-words',
+            'md:px-4'
+            //"border border-red-800",
+          )}
+        >
+          <slot />
+        </main>
+      </div>
+    </div>
+  </BodyLayout>
+</HtmlLayout>

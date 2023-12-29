@@ -215,15 +215,15 @@ function ClojureCourseContent() {
 }
 
 const spotlightItems: Record<string, SpotlightBaseCardProps> = {
-  openMeet: {
-    title: 'Open meet',
-    contentComponent: OpenMeetContent,
-    icon: '/img/spotlightIcons/salad-bowl.png',
-    bgColorClass: 'from-[#ebffd3] to-[#ccffa8]',
-    ctaLabel: 'Meet me',
-    ctaColorClass: 'text-[#3D6520]',
-    ctaArrow: 'out'
-  },
+  // openMeet: {
+  //   title: 'Open meet',
+  //   contentComponent: OpenMeetContent,
+  //   icon: '/img/spotlightIcons/salad-bowl.png',
+  //   bgColorClass: 'from-[#ebffd3] to-[#ccffa8]',
+  //   ctaLabel: 'Meet me',
+  //   ctaColorClass: 'text-[#3D6520]',
+  //   ctaArrow: 'out'
+  // },
   stateOfBeing: {
     title: 'State of being',
     contentComponent: StateOfBeingContent,

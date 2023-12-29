@@ -1,23 +1,11 @@
 ---
-import Seo from '@src/components/Seo';
-import HtmlLayout from '@src/layouts/Html.astro';
-import BodyLayout from '@src/layouts/Body.astro';
-import HeadLayout from '@src/layouts/Head.astro';
-import IndexContainer from '@src/containers/Index';
+import IndexBase from '@src/layouts/IndexBase.astro';
+
+import Timeline from '@src/components/Timeline';
+import { getTimeline } from '@src/domain/content';
+const timelineItems = getTimeline();
 ---
 
-<HtmlLayout>
-  <HeadLayout>
-    <Seo
-      title={'Krim Labs'}
-      subTitle={'Hi, my name is Shivek. Krim is my interface to the world.'}
-      tags={'Krim Labs, krim, labs, shivek khurana, shivek, clojure'}
-      authorName={'Shivek Khurana'}
-      heroImg={'/img/og.png'}
-    />
-  </HeadLayout>
-
-  <BodyLayout>
-    <IndexContainer />
-  </BodyLayout>
-</HtmlLayout>
+<IndexBase>
+  <Timeline timelineItems={timelineItems} filter="All" />
+</IndexBase>

@@ -93,6 +93,7 @@ function groupAndSortByYear(objects: TimelineItem[]): { [year: number]: Timeline
     {} as { [year: number]: any[] }
   );
 }
+
 function getTimeline(): Record<number, TimelineItem[]> {
   // order by created at and group by year
   return groupAndSortByYear([
@@ -102,9 +103,30 @@ function getTimeline(): Record<number, TimelineItem[]> {
   ]);
 }
 
+function getTimelinePosts(): Record<number, TimelineItem[]> {
+  // order by created at and group by year
+  return groupAndSortByYear([
+    ...getAllPosts(),
+  ]);
+}
+
+function getTimelineTrips(): Record<number, TimelineItem[]> {
+  // order by created at and group by year
+  return groupAndSortByYear([
+    ...getAllTrips(),
+  ]);
+}
+
+function getTimelineMicroPosts(): Record<number, TimelineItem[]> {
+  // order by created at and group by year
+  return groupAndSortByYear([
+    ...getAllMicroPosts(),
+  ]);
+}
+
 function getAuthorBySlug(slug: string): Author {
   return getAllAuthors().find((a: Author) => a.slug === slug);
 }
 
-export { getLastTripAndEndCityTime, getAllPosts, getTimeline, getAuthorBySlug };
+export { getLastTripAndEndCityTime, getAllPosts, getTimeline, getAuthorBySlug, getTimelinePosts, getTimelineTrips, getTimelineMicroPosts };
 export type { Post, Author, Trip, Tag };

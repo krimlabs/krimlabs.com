@@ -1,0 +1,11 @@
+---
+import IndexBase from '@src/layouts/IndexBase.astro';
+
+import Timeline from '@src/components/Timeline';
+import { getTimelinePosts } from '@src/domain/content';
+const timelinePosts = getTimelinePosts();
+---
+
+<IndexBase>
+  <Timeline timelineItems={timelinePosts} filter="Posts" />
+</IndexBase>
