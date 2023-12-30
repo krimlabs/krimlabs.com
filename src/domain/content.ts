@@ -1,8 +1,6 @@
 import cityTimezones from 'city-timezones';
 import { allPosts, allTrips, allMicroPosts, allAuthors, allTags } from '@contentlayer/generated';
 import type { Post, Trip, Author, Tag, MicroPost } from '@contentlayer/generated'
-import config from '@src/config';
-import contentlayerConfig from '../../contentlayer.config';
 
 type CityData = {
   city: string;

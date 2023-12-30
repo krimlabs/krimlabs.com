@@ -21,7 +21,7 @@ function ArticleStructuredData(props: PropsWithChildren<{
   } = props
   const sd = `{
       "@context": "https://schema.org",
-      '@type': "Article",
+      "@type": "Article",
       "headline": "${title}",
       "image": "https://krimlabs.com${heroImg}",
       "author": "${authorName}",

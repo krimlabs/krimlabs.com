@@ -1,5 +1,5 @@
 export default {
-  statOfBeingBase: 'https://krimlabs.github.io/state-of-being/',
+  stateOfBeingBase: 'https://raw.githubusercontent.com/krimlabs/state-of-being/master/',
   vault: {
     workouts: '/vault/workouts.json',
     meditations: '/vault/meditations.json',

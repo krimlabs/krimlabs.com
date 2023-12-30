@@ -1,0 +1,18 @@
+---
+import Nav from '@src/components/Nav';
+import HtmlLayout from '@src/layouts/Html.astro';
+import BodyLayout from '@src/layouts/Body.astro';
+import HeadLayout from '@src/layouts/Head.astro';
+---
+
+<HtmlLayout>
+  <HeadLayout />
+
+  <BodyLayout>
+    <article>
+      <div class="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
+        <Nav />
+      </div>
+    </article>
+  </BodyLayout>
+</HtmlLayout>
