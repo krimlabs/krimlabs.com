@@ -42,7 +42,7 @@ function WorkoutCountBarChartByMonth(props: PropsWithChildren<{ workoutStats: Wo
   const monthlyTargets = Object.entries(thisYear).map(([, { target }]) => target)
   const monthlyShowUpRates = Object.entries(thisYear).map(([, { showUpRate }]) => parseInt(showUpRate))
 
-  return <div className='border mt-4 rounded'>
+  return <div className='border mt-4 rounded h-[240px]'>
     <FrappeChart
       title={`${currentYear}`}
       animate={0}
@@ -97,7 +97,7 @@ function SleepAndRecoveryBarChartByMonth(props: PropsWithChildren<{ sleepAggrega
   const monthlyHRDrop = Object.entries(thisYear).map(([, { contributorAverages }]) => contributorAverages["HR Drop"] || 0).map(Math.ceil)
   const monthlyTiming = Object.entries(thisYear).map(([, { contributorAverages }]) => contributorAverages.Timing || 0).map(Math.ceil)
 
-  return <div className='border mt-4 rounded'>
+  return <div className='border mt-4 rounded h-[240px]'>
     <FrappeChart
       title={`${currentYear} - Sleep Markers`}
       animate={0}
@@ -152,9 +152,9 @@ function HealthBarChartByMonth(props: PropsWithChildren<{ sleepAggregates: Sleep
   const temp = Object.entries(thisYear).map(([, { contributorAverages }]) => contributorAverages.Temperature || 0).map(Math.ceil)
   const restorativeSleep = Object.entries(thisYear).map(([, { contributorAverages }]) => contributorAverages["Restorative Sleep"] || 0).map(Math.ceil)
 
-  return <div className='border mt-4 rounded'>
+  return <div className='border mt-4 rounded h-[240px]'>
     <FrappeChart
-      title={`${currentYear} - Sleep Markers`}
+      title={`${currentYear} - Health Markers`}
       animate={0}
       colors={["#8cd187", "#FFC2CE", "#bab7ea", '#cbe1e9']}
       axisOptions={{ xAxisMode: "tick", xIsSeries: 1 }}
