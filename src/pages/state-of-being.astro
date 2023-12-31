@@ -1,18 +1,34 @@
 ---
+import clsx from 'clsx';
+
 import Nav from '@src/components/Nav';
 import HtmlLayout from '@src/layouts/Html.astro';
 import BodyLayout from '@src/layouts/Body.astro';
 import HeadLayout from '@src/layouts/Head.astro';
+import StateOfBeing from '@src/containers/StateOfBeing';
+import { fetchWorkoutStats } from '@src/domain/workouts';
+import { fetchMeditationAggregates } from '@src/domain/meditations';
+import { fetchSleepAggregates } from '@src/domain/sleep';
+
+const workoutStats = await fetchWorkoutStats();
+const meditationAggregates = await fetchMeditationAggregates();
+const sleepAggregates = await fetchSleepAggregates();
 ---
 
 <HtmlLayout>
   <HeadLayout />
 
   <BodyLayout>
-    <article>
-      <div class="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
+    <main>
+      <div class={clsx('w-11/12 mx-auto lg:w-8/12 xl:w-6/12', '')}>
         <Nav />
       </div>
-    </article>
+      <StateOfBeing
+        workoutStats={workoutStats}
+        sleepAggregates={sleepAggregates}
+        meditationAggregates={meditationAggregates}
+        client:idle
+      />
+    </main>
   </BodyLayout>
 </HtmlLayout>

@@ -36,9 +36,31 @@ type SpotlightBaseCardProps = {
   smallHeading?: boolean;
   ctaArrow?: 'out' | 'right';
   ctaLabel?: string;
+  ctaLink?: string;
   ctaColorClass?: string;
   textColorClass?: string | "";
 };
+
+function SpotlightCta(props: SpotlightBaseCardProps) {
+  return (<a href={props.ctaLink || '#'} target={props.ctaLink && props.ctaLink.startsWith("https://") ? '_blank' : ""}>
+    <div className={clsx(props.ctaColorClass, "font-bold text-xl", "mt-3", 'flex items-center', 'hover:animate-pulse active:pt-1')}>
+      <div>
+        {props.ctaLabel}
+      </div>
+      <div className='ml-1'>
+        {props.ctaArrow === 'right' &&
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        }
+        {props.ctaArrow === 'out' &&
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+          </svg>
+        }
+      </div>
+    </div></a>)
+}
 
 function SpotlightBaseCard(props: SpotlightBaseCardProps) {
   const Content = props.contentComponent;
@@ -74,27 +96,7 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
         {props.title}
       </h2>
       <div>{Content && <Content />}</div>
-      {props.ctaLabel &&
-        <div className={clsx(props.ctaColorClass, "font-bold text-xl", "mt-3", 'flex items-center')}>
-          <div>
-
-            {props.ctaLabel}
-          </div>
-          <div className='ml-1'>
-            {props.ctaArrow === 'right' &&
-
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            }
-            {props.ctaArrow === 'out' &&
-
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-              </svg>
-            }
-          </div>
-        </div>}
+      {props.ctaLabel && <SpotlightCta {...props} />}
     </div>
   );
 }
@@ -116,18 +118,13 @@ function StateOfBeingContent() {
     {
       key: "Workout",
       description: "100% means completion of 5 workouts per week.",
-      val: ((workoutStats.latest * 100) / workoutStats.weekdaysPassed).toFixed(
-        0,
-      ),
+      val: workoutStats.latest.showUpRate,
       descriptor: "%",
     },
     {
       key: "Meditation",
       description: "100% means completion of 1 meditation per day.",
-      val: (
-        (meditationAggregates.latestForDashboard.stats.numMeditations * 100) /
-        meditationAggregates.latestForDashboard.currentDay
-      ).toFixed(0),
+      val: meditationAggregates.latestForDashboard.stats.showUpRate,
       descriptor: "%",
     },
     {
@@ -231,7 +228,8 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     bgColorClass: 'from-[#D9D3FF] to-[#C0B6FC]',
     ctaLabel: 'View Dashboard',
     ctaColorClass: 'text-[#6157A1]',
-    ctaArrow: 'right'
+    ctaArrow: 'right',
+    ctaLink: '/state-of-being'
   },
   currentLocation: {
     title: 'Currently in',
@@ -247,6 +245,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     bgColorClass: 'from-[#FFE7B7] to-[#FFE0A8]',
     smallHeading: true,
     ctaLabel: 'LinkedIn',
+    ctaLink: 'https://www.linkedin.com/in/shivekkhurana/',
     ctaColorClass: 'text-[#AC781C]',
     ctaArrow: 'out'
   },
@@ -259,7 +258,8 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     textColorClass: 'text-white',
     ctaLabel: 'View course',
     ctaColorClass: 'text-[#E5A3A6]',
-    ctaArrow: 'out'
+    ctaArrow: 'out',
+    ctaLink: 'https://www.newline.co/courses/tinycanva-clojure-for-react-developers'
   },
 };
 

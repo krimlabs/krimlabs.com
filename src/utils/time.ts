@@ -1,3 +1,14 @@
+import { format, getDaysInMonth } from 'date-fns';
+
+function getMonthName(monthNumber: string | number): string {
+  const dummyDate = new Date(2023, parseInt(monthNumber) - 1, 1); // Month numbers are zero-based in JavaScript Date
+  return format(dummyDate, 'MMMM');
+}
+
+function getNumberOfDaysInMonth(year: number, month: number): number {
+  return getDaysInMonth(new Date(year, month - 1));
+}
+
 function convertDateString(dateString: string): string {
   const months: string[] = [
     "Jan",
@@ -22,4 +33,4 @@ function convertDateString(dateString: string): string {
   return `${month} ${day}, ${year}`;
 }
 
-export { convertDateString };
+export { convertDateString, getMonthName, getNumberOfDaysInMonth };

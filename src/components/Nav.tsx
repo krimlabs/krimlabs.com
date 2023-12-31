@@ -9,12 +9,12 @@ function Nav() {
             <img
               src={'/img/logo.svg'}
               alt="Krim Labs Logo Purple"
-              width={160}
-              height={46.3}
+              width={80}
+              height={23.15}
             />
           </div>
         </a>
-        <div className="font-bold text-gray-600">{`kr-eee-mm`}</div>
+        <div className="text-gray-500 text-sm">{`kr-eee-mm`}</div>
       </div>
     </div>
   );

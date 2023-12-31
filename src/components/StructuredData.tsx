@@ -19,19 +19,20 @@ function ArticleStructuredData(props: PropsWithChildren<{
     authorName,
     tags,
   } = props
-  const sd = `{
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "${title}",
-      "image": "https://krimlabs.com${heroImg}",
-      "author": "${authorName}",
-      "keywords": "${tags}",
-      "publisher": "Krim Labs",
-      "url": "${url}",
-      "datePublished": "${publishedOn}",
-      "description": "${subTitle || ''}",
-    }`
 
+  const sd = `
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "${title}",
+    "image": "https://krimlabs.com${heroImg}",
+    "author": "${authorName}",
+    "keywords": "${tags}",
+    "publisher": "Krim Labs",
+    "url": "${url}",
+    "datePublished": "${publishedOn}",
+    "description": "${subTitle || ''}",
+  }`
 
   return (
     <script type="application/ld+json"

@@ -16,6 +16,7 @@
     "contentlayer": "^0.3.4",
     "date-fns": "^3.0.6",
     "decap-server": "^3.0.1",
+    "frappe-charts": "^1.6.2",
     "htmr": "^1.0.2",
     "marked": "^11.1.0",
     "marked-highlight": "^2.1.0",

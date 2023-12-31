@@ -1,8 +1,9 @@
 ---
+import clsx from 'clsx';
+
 import Nav from '@src/components/Nav';
 import Post from '@src/components/Post';
 import { getAllPosts, getAuthorBySlug } from '@src/domain/content';
-
 import Seo from '@src/components/Seo';
 import StructuredData from '@src/components/StructuredData';
 import HtmlLayout from '@src/layouts/Html.astro';
@@ -45,7 +46,7 @@ const author = getAuthorBySlug(post.author);
 
   <BodyLayout>
     <article>
-      <div class="mx-auto w-10/12 md:w-8/12 lg:w-6/12">
+      <div class={clsx('w-11/12 mx-auto lg:w-8/12 xl:w-6/12', '')}>
         <Nav />
       </div>
       <Post post={post} />
