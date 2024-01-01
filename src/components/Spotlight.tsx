@@ -114,6 +114,8 @@ function OpenMeetContent() {
 }
 
 function StateOfBeingContent() {
+  const { meditationEfficiency, showUpRate, numObservations } = meditationAggregates.latestForDashboard.stats
+  const { currentDay } = meditationAggregates.latestForDashboard
   const txfmStats = [
     {
       key: "Workout",
@@ -124,25 +126,25 @@ function StateOfBeingContent() {
     {
       key: "Meditation",
       description: "100% means completion of 1 meditation per day.",
-      val: meditationAggregates.latestForDashboard.stats.showUpRate,
+      val: showUpRate,
       descriptor: "%",
     },
     {
       key: "Awareness",
       description: "100% means recording of 2 observations per day.",
       val: (
-        (meditationAggregates.latestForDashboard.stats.numObservations * 100) /
+        (numObservations * 100) /
         // target three observations per day
-        (meditationAggregates.latestForDashboard.currentDay * 3)
+        (currentDay * 3)
       ).toFixed(0),
       descriptor: "%",
     },
     {
       key: "Lucidity",
       description: "100% means every meditation enhanced my spirit.",
-      val: parseFloat(
-        meditationAggregates.latestForDashboard.stats.meditationEfficiency,
-      ).toFixed(0),
+      val: meditationEfficiency !== "NaN" ? parseFloat(
+        meditationEfficiency,
+      ).toFixed(0) : 0,
       descriptor: "%",
     },
     {
