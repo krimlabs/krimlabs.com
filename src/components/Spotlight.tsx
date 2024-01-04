@@ -1,11 +1,14 @@
-import clsx from "clsx";
-import React from "react";
+import clsx from 'clsx';
+import React from 'react';
 
-import { fetchWorkoutStats } from "@src/domain/workouts";
-import { fetchMeditationAggregates } from "@src/domain/meditations";
-import { fetchSleepAggregates } from "@src/domain/sleep";
-import { getLastTripAndEndCityTime } from "@src/domain/content";
-import Img from '@src/components/Img'
+import { fetchWorkoutStats } from '@src/domain/workouts';
+import { fetchMeditationAggregates } from '@src/domain/meditations';
+import { fetchSleepAggregates } from '@src/domain/sleep';
+import { getLastTripAndEndCityTime } from '@src/domain/content';
+import Img from '@src/components/Img';
+import StateItem, { BoltIcon } from '@src/components/StateItem';
+
+import type { WorkoutStats } from '@src/domain/workouts';
 
 const workoutStats = await fetchWorkoutStats();
 const meditationAggregates = await fetchMeditationAggregates();
@@ -22,7 +25,7 @@ function daysUntilNovember2072(): string {
   const daysLeft: number = Math.floor(differenceInTime / millisecondsInDay);
 
   if (daysLeft >= 1000) {
-    return Math.ceil(daysLeft / 1000) + "k";
+    return Math.ceil(daysLeft / 1000) + 'k';
   } else {
     return daysLeft.toString();
   }
@@ -38,28 +41,64 @@ type SpotlightBaseCardProps = {
   ctaLabel?: string;
   ctaLink?: string;
   ctaColorClass?: string;
-  textColorClass?: string | "";
+  textColorClass?: string | '';
 };
 
 function SpotlightCta(props: SpotlightBaseCardProps) {
-  return (<a href={props.ctaLink || '#'} target={props.ctaLink && props.ctaLink.startsWith("https://") ? '_blank' : ""}>
-    <div className={clsx(props.ctaColorClass, "font-bold text-xl", "mt-3", 'flex items-center', 'hover:animate-pulse active:pt-1')}>
-      <div>
-        {props.ctaLabel}
+  return (
+    <a
+      href={props.ctaLink || '#'}
+      target={
+        props.ctaLink && props.ctaLink.startsWith('https://') ? '_blank' : ''
+      }
+    >
+      <div
+        className={clsx(
+          props.ctaColorClass,
+          'font-bold text-xl',
+          'mt-3',
+          'flex items-center',
+          'hover:animate-pulse active:pt-1'
+        )}
+      >
+        <div>{props.ctaLabel}</div>
+        <div className="ml-1">
+          {props.ctaArrow === 'right' && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-4 h-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+              />
+            </svg>
+          )}
+          {props.ctaArrow === 'out' && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-4 h-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+              />
+            </svg>
+          )}
+        </div>
       </div>
-      <div className='ml-1'>
-        {props.ctaArrow === 'right' &&
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-          </svg>
-        }
-        {props.ctaArrow === 'out' &&
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-          </svg>
-        }
-      </div>
-    </div></a>)
+    </a>
+  );
 }
 
 function SpotlightBaseCard(props: SpotlightBaseCardProps) {
@@ -67,13 +106,13 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
   return (
     <div
       className={clsx(
-        "bg-gradient-to-b",
-        "rounded-xl",
-        "flex flex-col",
-        "py-3 px-4 mb-4",
-        "",
+        'bg-gradient-to-b',
+        'rounded-xl',
+        'flex flex-col',
+        'py-3 px-4 mb-4',
+        '',
         props.bgColorClass,
-        props.textColorClass,
+        props.textColorClass
       )}
     >
       <div className="flex justify-end">
@@ -82,15 +121,15 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
           alt={`${props.title} icon`}
           defaultWidth={240}
           className={clsx(
-            "mr-[-12%] sm:mr-[-10%] md:mr-[-24%] mb-[-48%]",
-            "h-[96px] w-[96px]",
+            'mr-[-12%] sm:mr-[-10%] md:mr-[-24%] mb-[-48%]',
+            'h-[96px] w-[96px]'
           )}
         />
       </div>
 
       <h2
-        className={clsx("text-2xl font-bold mb-3", {
-          "text-sm mb-[4px]": props.smallHeading,
+        className={clsx('text-2xl font-bold mb-3', {
+          'text-sm mb-[4px]': props.smallHeading,
         })}
       >
         {props.title}
@@ -112,69 +151,99 @@ function OpenMeetContent() {
     </div>
   );
 }
-
-function StateOfBeingContent() {
-  const { meditationEfficiency, showUpRate, numObservations } = meditationAggregates.latestForDashboard.stats
-  const { currentDay } = meditationAggregates.latestForDashboard
-  const txfmStats = [
+const txfmStatsFactory = ({
+  workoutStats,
+  currentDay,
+  numObservations,
+  meditationEfficiency,
+  showUpRate,
+}: {
+  workoutStats: WorkoutStats;
+  currentDay: number;
+  numObservations: number;
+  showUpRate: string;
+  meditationEfficiency: string;
+}) => {
+  return [
     {
-      key: "Workout",
-      description: "100% means completion of 5 workouts per week.",
+      id: 'Workout',
+      icon: BoltIcon,
+      description: '100% means completion of 5 workouts per week.',
       val: workoutStats.latest.showUpRate,
-      descriptor: "%",
+      descriptor: '%',
     },
     {
-      key: "Meditation",
-      description: "100% means completion of 1 meditation per day.",
+      id: 'Meditation',
+      icon: BoltIcon,
+      description: '100% means completion of 1 meditation per day.',
       val: showUpRate,
-      descriptor: "%",
+      descriptor: '%',
     },
     {
-      key: "Awareness",
-      description: "100% means recording of 2 observations per day.",
+      id: 'Awareness',
+      icon: BoltIcon,
+      description: '100% means recording of 2 observations per day.',
       val: (
         (numObservations * 100) /
         // target three observations per day
         (currentDay * 3)
       ).toFixed(0),
-      descriptor: "%",
+      descriptor: '%',
     },
     {
-      key: "Lucidity",
-      description: "100% means every meditation enhanced my spirit.",
-      val: meditationEfficiency !== "NaN" ? parseFloat(
-        meditationEfficiency,
-      ).toFixed(0) : 0,
-      descriptor: "%",
+      id: 'Lucidity',
+      icon: BoltIcon,
+      description: '100% means every meditation enhanced my spirit.',
+      val:
+        meditationEfficiency !== 'NaN'
+          ? parseFloat(meditationEfficiency).toFixed(0)
+          : 0,
+      descriptor: '%',
     },
     {
-      key: "Sleep",
-      description: "Sleep is a combination of various factors",
+      id: 'Sleep',
+      icon: BoltIcon,
+      description: 'Sleep is a combination of various factors',
       val: sleepAggregates.latest.sleepIndex.toFixed(0),
     },
     {
-      key: "~Time left",
+      id: '~Time left',
+      icon: BoltIcon,
       description:
-        "Approximate number of days left in my life, assuming life span of 80.",
+        'Approximate number of days left in my life, assuming life span of 80.',
       val: daysUntilNovember2072(),
-      descriptor: "days",
+      descriptor: 'days',
     },
   ];
+};
+
+function StateOfBeingContent() {
+  const { meditationEfficiency, showUpRate, numObservations } =
+    meditationAggregates.latestForDashboard.stats;
+  const { currentDay } = meditationAggregates.latestForDashboard;
+  const txfmStats = txfmStatsFactory({
+    workoutStats,
+    currentDay,
+    numObservations,
+    meditationEfficiency,
+    showUpRate,
+  });
   return (
-    <div className={clsx("grid grid-cols-2 gap-4", "mt-2")}>
+    <div className={clsx('grid grid-cols-1 gap-4', 'mt-2')}>
       {txfmStats.map((s) => {
         return (
-          <div key={s.key}>
-            <h3 className={clsx("text-sm", "mb-1", "opacity-80")}>{s.key}</h3>
-            <p className={clsx("text-3xl font-bold")}>
-              {s.val}
-              <span
+          <div key={s.id}>
+            {/* <h3 className={clsx('text-sm', 'mb-1', 'opacity-80')}>{s.key}</h3>
+                <p className={clsx('text-3xl font-bold')}>
+                {s.val}
+                <span
                 className="text-xs ml-1 opacity-60 font-normal"
-                style={{ verticalAlign: "super" }}
-              >
+                style={{ verticalAlign: 'super' }}
+                >
                 {s.descriptor}
-              </span>
-            </p>
+                </span>
+                </p> */}
+            <StateItem {...s} />
           </div>
         );
       })}
@@ -187,7 +256,7 @@ function CurrentLocationContent() {
 
   return (
     <div>
-      <p className={clsx("text-3xl font-bold")}>{trip.endCity}</p>
+      <p className={clsx('text-3xl font-bold')}>{trip.endCity}</p>
       <p className="text-sm mt-2 opacity-50">Timezone: {timeAndOffset[2]}</p>
     </div>
   );
@@ -196,7 +265,7 @@ function CurrentLocationContent() {
 function CurrentJobComponent() {
   return (
     <div className="w-[80%] md:w-[90%]">
-      <p className={clsx("text-2xl font-bold")}>
+      <p className={clsx('text-2xl font-bold')}>
         Sr. Clojure Engineer at Status
       </p>
     </div>
@@ -206,7 +275,7 @@ function CurrentJobComponent() {
 function ClojureCourseContent() {
   return (
     <div className="w-[80%] md:w-[90%]">
-      <p className={clsx("text-2xl font-bold", "mt-2")}>
+      <p className={clsx('text-2xl font-bold', 'mt-2')}>
         Tinycanva - Clojure for React Developers
       </p>
     </div>
@@ -231,7 +300,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     ctaLabel: 'View Dashboard',
     ctaColorClass: 'text-[#6157A1]',
     ctaArrow: 'right',
-    ctaLink: '/state-of-being'
+    ctaLink: '/state-of-being',
   },
   currentLocation: {
     title: 'Currently in',
@@ -249,7 +318,7 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     ctaLabel: 'LinkedIn',
     ctaLink: 'https://www.linkedin.com/in/shivekkhurana/',
     ctaColorClass: 'text-[#AC781C]',
-    ctaArrow: 'out'
+    ctaArrow: 'out',
   },
   clojureCourse: {
     title: 'Want to learn Clojure ?',
@@ -261,7 +330,8 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     ctaLabel: 'View course',
     ctaColorClass: 'text-[#E5A3A6]',
     ctaArrow: 'out',
-    ctaLink: 'https://www.newline.co/courses/tinycanva-clojure-for-react-developers'
+    ctaLink:
+      'https://www.newline.co/courses/tinycanva-clojure-for-react-developers',
   },
 };
 
@@ -270,7 +340,12 @@ function Spotlight() {
     <>
       {Object.keys(spotlightItems).map((id: string) => {
         const cardProps: SpotlightBaseCardProps = spotlightItems[id];
-        return <SpotlightBaseCard key={id} {...cardProps} />;
+        return (
+          <SpotlightBaseCard
+            key={id}
+            {...cardProps}
+          />
+        );
       })}
     </>
   );
