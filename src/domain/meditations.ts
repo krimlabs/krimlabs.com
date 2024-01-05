@@ -1,4 +1,4 @@
-import config from "@src/config";
+import config from '@src/config';
 
 type Stats = {
   numObservations: number;
@@ -31,6 +31,8 @@ type LatestDashboardData = MonthData & {
   currentDay: number;
   currentYear: number;
   currentMonth: number;
+  daysInCurrentMonth: number;
+  targetObservationsPerDay: number;
 };
 
 type YearlyData = {
@@ -45,7 +47,7 @@ export type MeditationAggregates = {
 
 async function fetchMeditationAggregates(): Promise<MeditationAggregates> {
   return await fetch(
-    `${config.stateOfBeingBase}/${config.vault.meditations}`,
+    `${config.stateOfBeingBase}/${config.vault.meditations}`
   ).then((res) => res.json());
 }
 

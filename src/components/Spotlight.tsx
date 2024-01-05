@@ -6,9 +6,17 @@ import { fetchMeditationAggregates } from '@src/domain/meditations';
 import { fetchSleepAggregates } from '@src/domain/sleep';
 import { getLastTripAndEndCityTime } from '@src/domain/content';
 import Img from '@src/components/Img';
-import StateItem, { BoltIcon } from '@src/components/StateItem';
+import StateItem, {
+  BoltIcon,
+  HeartIcon,
+  TimeIcon,
+  EyeIcon,
+  SpaceIcon,
+  FireIcon,
+} from '@src/components/StateItem';
 
 import type { WorkoutStats } from '@src/domain/workouts';
+import type { StateItemProps } from '@src/components/StateItem';
 
 const workoutStats = await fetchWorkoutStats();
 const meditationAggregates = await fetchMeditationAggregates();
@@ -151,6 +159,7 @@ function OpenMeetContent() {
     </div>
   );
 }
+
 const txfmStatsFactory = ({
   workoutStats,
   currentDay,
@@ -163,55 +172,89 @@ const txfmStatsFactory = ({
   numObservations: number;
   showUpRate: string;
   meditationEfficiency: string;
-}) => {
+}): StateItemProps[] => {
+  const workoutShowUpRate =
+    ((workoutStats.latest.count / workoutStats.weekdaysPassed) * 100).toFixed(
+      0
+    ) + '%';
+
+  const meditationStats = meditationAggregates.latestForDashboard.stats;
+
+  const awarenessShowUpRate =
+    (
+      (meditationStats.numObservations * 100) /
+      (meditationAggregates.latestForDashboard.currentDay *
+        meditationAggregates.latestForDashboard.targetObservationsPerDay)
+    ).toFixed(0) + '%';
+
   return [
     {
       id: 'Workout',
       icon: BoltIcon,
-      description: '100% means completion of 5 workouts per week.',
-      val: workoutStats.latest.showUpRate,
+      description: `Monthly goal of working out on every weekday. ${workoutShowUpRate} show up rate so far.`,
       descriptor: '%',
+      itemType: 'bar',
+      barProps: {
+        target: workoutStats.latest.target,
+        current: workoutStats.latest.count,
+        showUpRate: workoutShowUpRate,
+      },
     },
     {
       id: 'Meditation',
-      icon: BoltIcon,
-      description: '100% means completion of 1 meditation per day.',
-      val: showUpRate,
+      icon: FireIcon,
+      description: `Monthly goal of meditating every day. ${meditationAggregates.latestForDashboard.stats.showUpRate}% show up rate so far.`,
       descriptor: '%',
+      itemType: 'bar',
+      barProps: {
+        current: meditationAggregates.latestForDashboard.stats.numMeditations,
+        target: meditationAggregates.latestForDashboard.daysInCurrentMonth,
+        showUpRate: meditationAggregates.latestForDashboard.stats.showUpRate,
+      },
     },
     {
       id: 'Awareness',
-      icon: BoltIcon,
-      description: '100% means recording of 2 observations per day.',
-      val: (
-        (numObservations * 100) /
-        // target three observations per day
-        (currentDay * 3)
-      ).toFixed(0),
+      icon: EyeIcon,
+      description: `Monthly goal of recording my emotional state atleast ${meditationAggregates.latestForDashboard.targetObservationsPerDay} times per day. ${awarenessShowUpRate}  on track so far. `,
+      itemType: 'bar',
+      barProps: {
+        current: meditationStats.numObservations,
+        target: meditationAggregates.latestForDashboard.daysInCurrentMonth,
+        showUpRate: awarenessShowUpRate,
+      },
       descriptor: '%',
     },
     {
       id: 'Lucidity',
-      icon: BoltIcon,
-      description: '100% means every meditation enhanced my spirit.',
-      val:
-        meditationEfficiency !== 'NaN'
-          ? parseFloat(meditationEfficiency).toFixed(0)
-          : 0,
+      icon: SpaceIcon,
+      containerClassName: 'mt-6',
+      description: 'A measure of the quality of observations and meditations.',
+      itemType: 'count',
+      countProps: {
+        value:
+          meditationEfficiency !== 'NaN'
+            ? parseFloat(meditationEfficiency).toFixed(0)
+            : 0,
+      },
       descriptor: '%',
     },
     {
       id: 'Sleep',
-      icon: BoltIcon,
-      description: 'Sleep is a combination of various factors',
-      val: sleepAggregates.latest.sleepIndex.toFixed(0),
+      icon: HeartIcon,
+      description:
+        'A combination of factors like timing, temperatture, heart rate etc. Score out of 100.',
+      itemType: 'count',
+      countProps: {
+        value: sleepAggregates.latest.sleepIndex.toFixed(0),
+      },
     },
     {
-      id: '~Time left',
-      icon: BoltIcon,
+      id: 'Time left',
+      icon: TimeIcon,
       description:
-        'Approximate number of days left in my life, assuming life span of 80.',
-      val: daysUntilNovember2072(),
+        'Assuming that I live until 78 years, this is how many days I have left.',
+      deathProps: { daysLeft: daysUntilNovember2072() },
+      itemType: 'death',
       descriptor: 'days',
     },
   ];
@@ -229,20 +272,10 @@ function StateOfBeingContent() {
     showUpRate,
   });
   return (
-    <div className={clsx('grid grid-cols-1 gap-4', 'mt-2')}>
+    <div className={clsx('grid grid-cols-1 gap-4')}>
       {txfmStats.map((s) => {
         return (
           <div key={s.id}>
-            {/* <h3 className={clsx('text-sm', 'mb-1', 'opacity-80')}>{s.key}</h3>
-                <p className={clsx('text-3xl font-bold')}>
-                {s.val}
-                <span
-                className="text-xs ml-1 opacity-60 font-normal"
-                style={{ verticalAlign: 'super' }}
-                >
-                {s.descriptor}
-                </span>
-                </p> */}
             <StateItem {...s} />
           </div>
         );
