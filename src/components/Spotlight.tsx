@@ -219,7 +219,9 @@ const txfmStatsFactory = ({
       itemType: 'bar',
       barProps: {
         current: meditationStats.numObservations,
-        target: meditationAggregates.latestForDashboard.daysInCurrentMonth,
+        target:
+          meditationAggregates.latestForDashboard.daysInCurrentMonth *
+          meditationAggregates.latestForDashboard.targetObservationsPerDay,
         showUpRate: awarenessShowUpRate,
       },
       descriptor: '%',
