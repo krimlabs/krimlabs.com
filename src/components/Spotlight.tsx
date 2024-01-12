@@ -4,7 +4,6 @@ import React from 'react';
 import { fetchWorkoutStats } from '@src/domain/workouts';
 import { fetchMeditationAggregates } from '@src/domain/meditations';
 import { fetchSleepAggregates } from '@src/domain/sleep';
-import { getLastTripAndEndCityTime } from '@src/domain/content';
 import Img from '@src/components/Img';
 import StateItem, {
   BoltIcon,
@@ -14,6 +13,8 @@ import StateItem, {
   SpaceIcon,
   FireIcon,
 } from '@src/components/StateItem';
+import Travels from '@src/components/spotlight/Travels';
+import Projects from '@src/components/spotlight/Projects';
 
 import type { WorkoutStats } from '@src/domain/workouts';
 import type { StateItemProps } from '@src/components/StateItem';
@@ -118,7 +119,6 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
         'rounded-xl',
         'flex flex-col',
         'py-3 px-4 mb-4',
-        '',
         props.bgColorClass,
         props.textColorClass
       )}
@@ -129,8 +129,8 @@ function SpotlightBaseCard(props: SpotlightBaseCardProps) {
           alt={`${props.title} icon`}
           defaultWidth={240}
           className={clsx(
-            'mr-[-12%] sm:mr-[-10%] md:mr-[-24%] mb-[-48%]',
-            'h-[96px] w-[96px]'
+            'mr-[-8%] sm:mr-[-6%] md:mr-[-24%] mb-[-48%]',
+            'h-[48px] w-[48px] md:h-[96px] md:w-[96px]'
           )}
         />
       </div>
@@ -153,8 +153,8 @@ function OpenMeetContent() {
     <div className="text-sm leading-5 w-[80%]">
       <p>Meeting strangers increases the surface area for luck to land on.</p>
       <p className="mt-2">
-        If you find anything I do interesting, we should meet. No agenda, just a
-        30 minutes meeting. Preferably in person.
+        If you find anything I do interesting, we should meet. 30 minutes.
+        Preferably in person.
       </p>
     </div>
   );
@@ -244,7 +244,7 @@ const txfmStatsFactory = ({
       id: 'Sleep',
       icon: HeartIcon,
       description:
-        'A combination of factors like timing, temperatture, heart rate etc. Score out of 100.',
+        'A combination of factors like timing, temperature, heart rate etc. Score out of 100.',
       itemType: 'count',
       countProps: {
         value: sleepAggregates.latest.sleepIndex.toFixed(0),
@@ -254,7 +254,7 @@ const txfmStatsFactory = ({
       id: 'Time left',
       icon: TimeIcon,
       description:
-        'Assuming that I live until 78 years, this is how many days I have left.',
+        'Assuming that I live until 78 years of age, this is how many days I have left.',
       deathProps: { daysLeft: daysUntilNovember2072() },
       itemType: 'death',
       descriptor: 'days',
@@ -286,27 +286,6 @@ function StateOfBeingContent() {
   );
 }
 
-function CurrentLocationContent() {
-  const { trip, timeAndOffset } = getLastTripAndEndCityTime();
-
-  return (
-    <div>
-      <p className={clsx('text-3xl font-bold')}>{trip.endCity}</p>
-      <p className="text-sm mt-2 opacity-50">Timezone: {timeAndOffset[2]}</p>
-    </div>
-  );
-}
-
-function CurrentJobComponent() {
-  return (
-    <div className="w-[80%] md:w-[90%]">
-      <p className={clsx('text-2xl font-bold')}>
-        Sr. Clojure Engineer at Status
-      </p>
-    </div>
-  );
-}
-
 function ClojureCourseContent() {
   return (
     <div className="w-[80%] md:w-[90%]">
@@ -318,15 +297,6 @@ function ClojureCourseContent() {
 }
 
 const spotlightItems: Record<string, SpotlightBaseCardProps> = {
-  // openMeet: {
-  //   title: 'Open meet',
-  //   contentComponent: OpenMeetContent,
-  //   icon: '/img/spotlightIcons/salad-bowl.png',
-  //   bgColorClass: 'from-[#ebffd3] to-[#ccffa8]',
-  //   ctaLabel: 'Meet me',
-  //   ctaColorClass: 'text-[#3D6520]',
-  //   ctaArrow: 'out'
-  // },
   stateOfBeing: {
     title: 'State of being',
     contentComponent: StateOfBeingContent,
@@ -339,15 +309,15 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
   },
   currentLocation: {
     title: 'Currently in',
-    contentComponent: CurrentLocationContent,
+    contentComponent: Travels,
     icon: '/img/spotlightIcons/globe.png',
     bgColorClass: 'from-[#D3F4FF] to-[#A8E6FF]',
     smallHeading: true,
   },
-  currentJob: {
-    title: 'Current job',
+  projects: {
+    title: 'Projects',
     icon: '/img/spotlightIcons/workbot.png',
-    contentComponent: CurrentJobComponent,
+    contentComponent: Projects,
     bgColorClass: 'from-[#FFE7B7] to-[#FFE0A8]',
     smallHeading: true,
     ctaLabel: 'LinkedIn',
@@ -355,6 +325,17 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     ctaColorClass: 'text-[#AC781C]',
     ctaArrow: 'out',
   },
+  openMeet: {
+    title: 'Open meet',
+    contentComponent: OpenMeetContent,
+    icon: '/img/spotlightIcons/salad-bowl.png',
+    bgColorClass: 'from-[#ebffd3] to-[#ccffa8]',
+    ctaLabel: 'Meet me',
+    ctaColorClass: 'text-[#3D6520]',
+    ctaArrow: 'out',
+    ctaLink: `mailto:khuranashivek@outlook.com?subject=%5BOpen%20Meet%5D%20%7BAdd%20your%20subject%20line%20here%7D&body=Hi%20Shivek%2C%0D%0A%0D%0AI%20am%3A%0D%0A-%20some%0D%0A-%20info%0D%0A-%20about%0D%0A-%20you%0D%0A%0D%0AI%20want%20to%20meet%20you%20because%3A%0D%0A-%20Some%0D%0A-%20info%0D%0A-%20about%0D%0A-%20why%20you%20want%20to%20meet%20me%0D%0A%0D%0AI%20live%20in%3A%20%7Byour%20city%7D%0D%0A%0D%0AI'd%20prefer%20it%20to%20be%3A%20%7Bonline%20or%20offline%7D%0D%0A%0D%0AThanks%20%3A)`,
+  },
+
   clojureCourse: {
     title: 'Want to learn Clojure ?',
     icon: '/img/spotlightIcons/paperclip.png',

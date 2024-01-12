@@ -14,7 +14,7 @@ function BoltIcon() {
         className=""
       >
         <path
-          stroke-Linecap="round"
+          strokeLinecap="round"
           strokeLinejoin="round"
           d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
         />
@@ -252,7 +252,7 @@ function StateItem(props: PropsWithChildren<StateItemProps>) {
   return (
     <div className={props.containerClassName || ''}>
       <div className={clsx('flex items-start')}>
-        <div className="w-1/12">
+        <div className="w-6 shrink-0">
           <Icon />
         </div>
         <div

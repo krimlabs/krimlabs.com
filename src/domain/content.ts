@@ -1,6 +1,18 @@
 import cityTimezones from 'city-timezones';
-import { allPosts, allTrips, allMicroPosts, allAuthors, allTags } from '@contentlayer/generated';
-import type { Post, Trip, Author, Tag, MicroPost } from '@contentlayer/generated'
+import {
+  allPosts,
+  allTrips,
+  allMicroPosts,
+  allAuthors,
+  allTags,
+} from '@contentlayer/generated';
+import type {
+  Post,
+  Trip,
+  Author,
+  Tag,
+  MicroPost,
+} from '@contentlayer/generated';
 
 type CityData = {
   city: string;
@@ -33,7 +45,7 @@ function getTimeInCityAndOffset(cityData: CityData): string[] {
 }
 
 function getLastTripAndEndCityTime(): {
-  trip: Trip
+  trip: Trip;
   timeAndOffset: string[];
 } {
   const trips = getAllTrips();
@@ -56,22 +68,26 @@ function getAllPosts(): Post[] {
 }
 
 function getAllMicroPosts(): MicroPost[] {
-  return allMicroPosts
+  return allMicroPosts;
 }
 
 function getAllTrips(): Trip[] {
-  return allTrips
+  return allTrips;
 }
 
 function getAllAuthors(): Author[] {
-  return allAuthors
+  return allAuthors;
 }
 
-export type TimelineItem = (Post | MicroPost | Trip)
-function groupAndSortByYear(objects: TimelineItem[]): { [year: number]: TimelineItem[] } {
+export type TimelineItem = Post | MicroPost;
+function groupAndSortByYear(objects: TimelineItem[]): {
+  [year: number]: TimelineItem[];
+} {
   return objects.reduce(
     (groupedByYear, obj) => {
-      const year: number = new Date(obj.publishedOn || obj.createdAt).getFullYear();
+      const year: number = new Date(
+        obj.publishedOn || obj.createdAt
+      ).getFullYear();
 
       // Use an object spread to create a new object (avoid mutating the original)
       const updatedGrouped = {
@@ -97,34 +113,36 @@ function getTimeline(): Record<number, TimelineItem[]> {
   return groupAndSortByYear([
     ...getAllPosts(),
     ...getAllMicroPosts(),
-    ...getAllTrips(),
+    //...getAllTrips(),
   ]);
 }
 
 function getTimelinePosts(): Record<number, TimelineItem[]> {
   // order by created at and group by year
-  return groupAndSortByYear([
-    ...getAllPosts(),
-  ]);
+  return groupAndSortByYear([...getAllPosts()]);
 }
 
 function getTimelineTrips(): Record<number, TimelineItem[]> {
   // order by created at and group by year
-  return groupAndSortByYear([
-    ...getAllTrips(),
-  ]);
+  return groupAndSortByYear([...getAllTrips()]);
 }
 
 function getTimelineMicroPosts(): Record<number, TimelineItem[]> {
   // order by created at and group by year
-  return groupAndSortByYear([
-    ...getAllMicroPosts(),
-  ]);
+  return groupAndSortByYear([...getAllMicroPosts()]);
 }
 
 function getAuthorBySlug(slug: string): Author {
   return getAllAuthors().find((a: Author) => a.slug === slug);
 }
 
-export { getLastTripAndEndCityTime, getAllPosts, getTimeline, getAuthorBySlug, getTimelinePosts, getTimelineTrips, getTimelineMicroPosts };
+export {
+  getLastTripAndEndCityTime,
+  getAllPosts,
+  getTimeline,
+  getAuthorBySlug,
+  getTimelinePosts,
+  getTimelineTrips,
+  getTimelineMicroPosts,
+};
 export type { Post, Author, Trip, Tag };
