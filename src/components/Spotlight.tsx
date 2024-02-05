@@ -247,7 +247,7 @@ const txfmStatsFactory = ({
         'A combination of factors like timing, temperature, heart rate etc. Score out of 100.',
       itemType: 'count',
       countProps: {
-        value: sleepAggregates.latest.sleepIndex.toFixed(0),
+        value: sleepAggregates?.latest?.sleepIndex?.toFixed(0) || 0,
       },
     },
     {
