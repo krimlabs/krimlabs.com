@@ -174,7 +174,7 @@ const txfmStatsFactory = ({
   meditationEfficiency: string;
 }): StateItemProps[] => {
   const workoutShowUpRate =
-    ((workoutStats.latest.count / workoutStats.weekdaysPassed) * 100).toFixed(
+    ((workoutStats?.latest?.count / workoutStats.weekdaysPassed) * 100).toFixed(
       0
     ) + '%';
 
@@ -195,8 +195,8 @@ const txfmStatsFactory = ({
       descriptor: '%',
       itemType: 'bar',
       barProps: {
-        target: workoutStats.latest.target,
-        current: workoutStats.latest.count,
+        target: workoutStats?.latest?.target,
+        current: workoutStats?.latest?.count,
         showUpRate: workoutShowUpRate,
       },
     },

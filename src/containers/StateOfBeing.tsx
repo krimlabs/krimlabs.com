@@ -58,11 +58,11 @@ function CurrentMonthWorkoutGlance(
         />
         <MeasurmentUnit
           label={'Completed'}
-          value={latest.count}
+          value={latest?.count}
         />
         <MeasurmentUnit
           label={'Show up %'}
-          value={latest.showUpRate}
+          value={latest?.showUpRate}
         />
       </div>
     </div>
