@@ -93,7 +93,7 @@ Update your tsconfig.json to include an alias for the types copied from the back
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@api-types/*": ["api.types/*"]
+      "@api-types/*": ["./api.types/*"]
     }
   }
 }
@@ -115,7 +115,7 @@ Copy code
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@ui-types/*": ["ui.types/*"]
+      "@ui-types/*": ["./ui.types/*"]
     }
   }
 }
