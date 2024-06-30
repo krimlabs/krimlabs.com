@@ -39,7 +39,7 @@
     "build:astro": "astro build",
     "preview:astro": "astro preview",
     "astro": "astro",
-    "dev:cms": "PORT=9999 bun run decap-server",
+    "dev:cms": "PORT=43999 bun run decap-server",
     "dev:contentlayer": "bun run contentlayer dev --verbose",
     "build:contentlayer": "bun run contentlayer build --verbose",
     "build:img": "bun run optimize-img.js",
