@@ -13,6 +13,7 @@ relatedSlugs:
   - handle-js-data-structures-with-map-reduce
 author: shivekkhurana
 ---
+
 In modern web development, ensuring consistency between the backend and frontend is crucial, especially when dealing with TypeScript types. Sharing these types between the backend and frontend can streamline your development process, reduce errors, and improve overall maintainability. This guide outlines an effective technique to share TypeScript types between your backend and frontend projects using `rsync` and `nodemon`.
 
 ## Problem
@@ -48,7 +49,7 @@ For this article, we are going to use `bun` runtime. We'll also need `nodemon`, 
 bun add nodemon npm-run-all
 ```
 
-Most UNIX like systems have `rsync` built in. 
+Most UNIX like systems have `rsync` built in.
 
 ### 2. Frontend Configuration
 
@@ -114,7 +115,7 @@ Copy code
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@ui-types/*": ["../ui.project/api.types/*"]
+      "@ui-types/*": ["ui.types/*"]
     }
   }
 }
