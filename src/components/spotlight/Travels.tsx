@@ -38,12 +38,14 @@ function Travels() {
       <p className={clsx('text-3xl font-bold')}>{trip.endCity}</p>
       <p className="">Timezone is {timeAndOffset[2]}</p>
       <p className="text-sm mt-4 font-bold">Recent trips</p>
-      {trips['2024'].map((t: Trip) => (
-        <TripLog
-          key={t.createdAt}
-          trip={t}
-        />
-      ))}
+      {trips['2025']
+        .filter((item) => item.type === 'Trip')
+        .map((t) => (
+          <TripLog
+            key={(t as Trip).createdAt}
+            trip={t as Trip}
+          />
+        ))}
     </div>
   );
 }
