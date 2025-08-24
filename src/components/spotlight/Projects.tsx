@@ -10,6 +10,12 @@ type ProjectProps = {
 
 const projects: ProjectProps[] = [
   {
+    title: 'Head of AI systems',
+    description: 'Build AI Automation and Research tools for C+C.',
+    link: 'https://collabcurrency.com',
+    icon: '/img/spotlightIcons/cc.jpg',
+  },
+  {
     title: 'Core Contributor at Status',
     description:
       'Status is a privacy focused super app for Ethereum. I help develop their mobile app.',
@@ -17,7 +23,7 @@ const projects: ProjectProps[] = [
     icon: '/img/spotlightIcons/status.png',
   },
   {
-    title: '[Paused] Co-founder at Meta Blocks',
+    title: 'Co-founder at Meta Blocks',
     description:
       'Meta Blocks aimed to build an NFT upgrade protocol on Solana, but the idea didn’t work out.',
     link: 'https://metablocks.world',
@@ -62,9 +68,9 @@ function Projects() {
   return (
     <div className="w-[90%]">
       <p className="text-sm opacity-60 mb-4">
-        For the past decade, I have been interested in SaaS and crypto. As of
-        now, I’m learning more about ed-tech, immigration, content creation and
-        bio-hacking.
+        Currently dedicating my time to learn and build AI systems. In the past,
+        I worked on enterprise software, crypto, health hacking and fashion
+        design.
       </p>
       {projects.map((p: ProjectProps) => (
         <Project

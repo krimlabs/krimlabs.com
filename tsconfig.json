@@ -1,24 +1,17 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "types": [
-      "bun-types",
-      "@types/react",
-      "@types/react-dom"
-    ],
+    "types": ["bun-types", "@types/react", "@types/react-dom"],
     "baseUrl": ".",
     "paths": {
-      "@src/*": [
-        "src/*"
-      ],
-      "@contentlayer/generated": [
-        ".contentlayer/generated"
-      ]
+      "@src/*": ["src/*"],
+      "@contentlayer/generated": [".contentlayer/generated"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "include": [
-      "./contentlayer/generated"
-    ]
-  }
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*", ".contentlayer/generated"]
 }

@@ -213,34 +213,6 @@ const txfmStatsFactory = ({
       },
     },
     {
-      id: 'Awareness',
-      icon: EyeIcon,
-      description: `Monthly goal of recording my emotional state atleast ${meditationAggregates.latestForDashboard.targetObservationsPerDay} times per day. ${awarenessShowUpRate}  on track so far. `,
-      itemType: 'bar',
-      barProps: {
-        current: meditationStats.numObservations,
-        target:
-          meditationAggregates.latestForDashboard.daysInCurrentMonth *
-          meditationAggregates.latestForDashboard.targetObservationsPerDay,
-        showUpRate: awarenessShowUpRate,
-      },
-      descriptor: '%',
-    },
-    {
-      id: 'Lucidity',
-      icon: SpaceIcon,
-      containerClassName: 'mt-6',
-      description: 'A measure of the quality of observations and meditations.',
-      itemType: 'count',
-      countProps: {
-        value:
-          meditationEfficiency !== 'NaN'
-            ? parseFloat(meditationEfficiency).toFixed(0)
-            : 0,
-      },
-      descriptor: '%',
-    },
-    {
       id: 'Sleep',
       icon: HeartIcon,
       description:
@@ -249,15 +221,6 @@ const txfmStatsFactory = ({
       countProps: {
         value: sleepAggregates?.latest?.sleepIndex?.toFixed(0) || 0,
       },
-    },
-    {
-      id: 'Time left',
-      icon: TimeIcon,
-      description:
-        'Assuming that I live until 78 years of age, this is how many days I have left.',
-      deathProps: { daysLeft: daysUntilNovember2072() },
-      itemType: 'death',
-      descriptor: 'days',
     },
   ];
 };
@@ -297,15 +260,24 @@ function ClojureCourseContent() {
 }
 
 const spotlightItems: Record<string, SpotlightBaseCardProps> = {
+  projects: {
+    title: 'Projects',
+    icon: '/img/spotlightIcons/workbot.png',
+    contentComponent: Projects,
+    bgColorClass: 'from-[#D4F4D4] to-[#C8E6C8]',
+    smallHeading: true,
+    ctaLabel: 'LinkedIn',
+    ctaLink: 'https://www.linkedin.com/in/shivekkhurana/',
+    ctaColorClass: 'text-[#3D6520]',
+    ctaArrow: 'out',
+  },
   stateOfBeing: {
     title: 'State of being',
     contentComponent: StateOfBeingContent,
     icon: '/img/spotlightIcons/orb.png',
     bgColorClass: 'from-[#D9D3FF] to-[#C0B6FC]',
-    ctaLabel: 'View Dashboard',
     ctaColorClass: 'text-[#6157A1]',
     ctaArrow: 'right',
-    ctaLink: '/state-of-being',
   },
   currentLocation: {
     title: 'Currently in',
@@ -313,41 +285,6 @@ const spotlightItems: Record<string, SpotlightBaseCardProps> = {
     icon: '/img/spotlightIcons/globe.png',
     bgColorClass: 'from-[#D3F4FF] to-[#A8E6FF]',
     smallHeading: true,
-  },
-  projects: {
-    title: 'Projects',
-    icon: '/img/spotlightIcons/workbot.png',
-    contentComponent: Projects,
-    bgColorClass: 'from-[#FFE7B7] to-[#FFE0A8]',
-    smallHeading: true,
-    ctaLabel: 'LinkedIn',
-    ctaLink: 'https://www.linkedin.com/in/shivekkhurana/',
-    ctaColorClass: 'text-[#AC781C]',
-    ctaArrow: 'out',
-  },
-  openMeet: {
-    title: 'Open meet',
-    contentComponent: OpenMeetContent,
-    icon: '/img/spotlightIcons/salad-bowl.png',
-    bgColorClass: 'from-[#ebffd3] to-[#ccffa8]',
-    ctaLabel: 'Meet me',
-    ctaColorClass: 'text-[#3D6520]',
-    ctaArrow: 'out',
-    ctaLink: `mailto:khuranashivek@outlook.com?subject=%5BOpen%20Meet%5D%20%7BAdd%20your%20subject%20line%20here%7D&body=Hi%20Shivek%2C%0D%0A%0D%0AI%20am%3A%0D%0A-%20some%0D%0A-%20info%0D%0A-%20about%0D%0A-%20you%0D%0A%0D%0AI%20want%20to%20meet%20you%20because%3A%0D%0A-%20Some%0D%0A-%20info%0D%0A-%20about%0D%0A-%20why%20you%20want%20to%20meet%20me%0D%0A%0D%0AI%20live%20in%3A%20%7Byour%20city%7D%0D%0A%0D%0AI'd%20prefer%20it%20to%20be%3A%20%7Bonline%20or%20offline%7D%0D%0A%0D%0AThanks%20%3A)`,
-  },
-
-  clojureCourse: {
-    title: 'Want to learn Clojure ?',
-    icon: '/img/spotlightIcons/paperclip.png',
-    smallHeading: true,
-    contentComponent: ClojureCourseContent,
-    bgColorClass: 'from-[#434343] to-[#000000]',
-    textColorClass: 'text-white',
-    ctaLabel: 'View course',
-    ctaColorClass: 'text-[#E5A3A6]',
-    ctaArrow: 'out',
-    ctaLink:
-      'https://www.newline.co/courses/tinycanva-clojure-for-react-developers',
   },
 };
 
