@@ -1,11 +1,13 @@
 ---
 import IndexBase from '@src/layouts/IndexBase.astro';
 
+import About from '@src/components/About';
 import Timeline from '@src/components/Timeline';
 import { getTimeline } from '@src/domain/content';
 const timelineItems = getTimeline();
 ---
 
 <IndexBase>
+  <About />
   <Timeline timelineItems={timelineItems} />
 </IndexBase>

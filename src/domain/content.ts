@@ -64,6 +64,7 @@ function getLastTripAndEndCityTime(): {
 }
 
 function getAllPosts(): Post[] {
+  // If there is no publishedOn, then it is a draft
   return allPosts.filter((p: Post) => p.publishedOn);
 }
 
