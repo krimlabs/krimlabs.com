@@ -36,7 +36,7 @@ function MicroPostLog(props: PropsWithChildren<{ microPost: MicroPost }>) {
 
 function BaseTimelineLog(props: PropsWithChildren<{ t: TimelineItem }>) {
   const { t } = props;
-  const getSrc = (itemType) => {
+  const getSrc = (itemType: string) => {
     if (itemType === 'Post') {
       return '/img/timelineIcons/post.svg';
     }
@@ -54,7 +54,13 @@ function BaseTimelineLog(props: PropsWithChildren<{ t: TimelineItem }>) {
           'group-hover:opacity-90'
         )}
       >
-        {convertDateString(t.createdAt || t.publishedOn).split(',')[0]}
+        {
+          convertDateString(
+            t.type === 'Post' || t.type === 'MicroPost'
+              ? t.publishedOn!
+              : t.createdAt
+          ).split(',')[0]
+        }
       </div>
       <div className="w-1/12">
         <img
@@ -85,10 +91,16 @@ function TimelineLogs(
   const { timelineItems, year } = props;
   return (
     <>
-      {timelineItems[year].map((t: TimelineItem) => {
+      {timelineItems.map((t: TimelineItem) => {
         return (
           <BaseTimelineLog
-            key={t.slug || t.title}
+            key={
+              t.type === 'Post'
+                ? t.slug!
+                : t.type === 'MicroPost'
+                  ? t.publishedOn!
+                  : t.createdAt
+            }
             t={t}
           >
             <ComputedComp t={t} />
@@ -128,7 +140,7 @@ function Timeline({
               <div className="font-bold text-xs opacity-60 mt-8">{year}</div>
               <TimelineLogs
                 year={year}
-                timelineItems={timelineItems}
+                timelineItems={timelineItems[parseInt(year)]}
               />
             </div>
           );

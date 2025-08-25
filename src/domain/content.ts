@@ -80,42 +80,57 @@ function getAllAuthors(): Author[] {
   return allAuthors;
 }
 
-export type TimelineItem = Post | MicroPost;
+export type TimelineItem = Post | MicroPost | Trip;
 function groupAndSortByYear(objects: TimelineItem[]): {
   [year: number]: TimelineItem[];
 } {
-  return objects.reduce(
-    (groupedByYear, obj) => {
-      const year: number = new Date(
-        obj.publishedOn || obj.createdAt
-      ).getFullYear();
+  return (
+    objects
+      // Only include items that are published
+      .filter((obj: TimelineItem) =>
+        obj.type === 'Post' || obj.type === 'MicroPost'
+          ? obj.publishedOn
+          : obj.createdAt
+      )
+      .reduce(
+        (groupedByYear, obj: TimelineItem) => {
+          const year: number = new Date(
+            obj.type === 'Post' || obj.type === 'MicroPost'
+              ? obj.publishedOn!
+              : obj.createdAt
+          ).getFullYear();
 
-      // Use an object spread to create a new object (avoid mutating the original)
-      const updatedGrouped = {
-        ...groupedByYear,
-        [year]: [...(groupedByYear[year] || []), obj],
-      };
+          // Use an object spread to create a new object (avoid mutating the original)
+          const updatedGrouped = {
+            ...groupedByYear,
+            [year]: [...(groupedByYear[year] || []), obj],
+          };
 
-      return {
-        ...groupedByYear,
-        [year]: updatedGrouped[year].sort(
-          (a: TimelineItem, b: TimelineItem) =>
-            new Date(b.publishedOn || b.createdAt).getTime() -
-            new Date(a.publishedOn || a.createdAt).getTime()
-        ),
-      };
-    },
-    {} as { [year: number]: any[] }
+          return {
+            ...groupedByYear,
+            [year]: updatedGrouped[year].sort(
+              (a: TimelineItem, b: TimelineItem) =>
+                new Date(
+                  b.type === 'Post' || b.type === 'MicroPost'
+                    ? b.publishedOn!
+                    : b.createdAt
+                ).getTime() -
+                new Date(
+                  a.type === 'Post' || a.type === 'MicroPost'
+                    ? a.publishedOn!
+                    : a.createdAt
+                ).getTime()
+            ),
+          };
+        },
+        {} as { [year: number]: any[] }
+      )
   );
 }
 
 function getTimeline(): Record<number, TimelineItem[]> {
   // order by created at and group by year
-  return groupAndSortByYear([
-    ...getAllPosts(),
-    ...getAllMicroPosts(),
-    //...getAllTrips(),
-  ]);
+  return groupAndSortByYear([...getAllPosts(), ...getAllMicroPosts()]);
 }
 
 function getTimelinePosts(): Record<number, TimelineItem[]> {
@@ -124,8 +139,9 @@ function getTimelinePosts(): Record<number, TimelineItem[]> {
 }
 
 function getTimelineTrips(): Record<number, TimelineItem[]> {
+  const trips = getAllTrips();
   // order by created at and group by year
-  return groupAndSortByYear([...getAllTrips()]);
+  return groupAndSortByYear(trips as unknown as TimelineItem[]);
 }
 
 function getTimelineMicroPosts(): Record<number, TimelineItem[]> {
@@ -134,7 +150,7 @@ function getTimelineMicroPosts(): Record<number, TimelineItem[]> {
 }
 
 function getAuthorBySlug(slug: string): Author {
-  return getAllAuthors().find((a: Author) => a.slug === slug);
+  return getAllAuthors().find((a: Author) => a.slug === slug)!;
 }
 
 export {
