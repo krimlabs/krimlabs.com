@@ -26,18 +26,12 @@ import Nav from '@src/components/Nav';
     <div class={clsx('w-11/12 mx-auto lg:w-8/12 xl:w-6/12', '')}>
       <Nav />
       <div class={clsx('flex flex-col md:flex-row', '')}>
+        <main class={clsx('flex-grow', 'break-words', 'pr-4')}>
+          <slot />
+        </main>
         <aside class={clsx('w-full md:w-[320px] flex-shrink-0', 'md:pr-4')}>
           <Spotlight />
         </aside>
-        <main
-          class={clsx(
-            'flex-grow',
-            'break-words',
-            'md:px-4'
-          )}
-        >
-          <slot />
-        </main>
       </div>
     </div>
   </BodyLayout>
