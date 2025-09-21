@@ -200,28 +200,6 @@ const txfmStatsFactory = ({
         showUpRate: workoutShowUpRate,
       },
     },
-    {
-      id: 'Meditation',
-      icon: FireIcon,
-      description: `Monthly goal of meditating every day. ${meditationAggregates.latestForDashboard.stats.showUpRate}% show up rate so far.`,
-      descriptor: '%',
-      itemType: 'bar',
-      barProps: {
-        current: meditationAggregates.latestForDashboard.stats.numMeditations,
-        target: meditationAggregates.latestForDashboard.daysInCurrentMonth,
-        showUpRate: meditationAggregates.latestForDashboard.stats.showUpRate,
-      },
-    },
-    {
-      id: 'Sleep',
-      icon: HeartIcon,
-      description:
-        'A combination of factors like timing, temperature, heart rate etc. Score out of 100.',
-      itemType: 'count',
-      countProps: {
-        value: sleepAggregates?.latest?.sleepIndex?.toFixed(0) || 0,
-      },
-    },
   ];
 };
 

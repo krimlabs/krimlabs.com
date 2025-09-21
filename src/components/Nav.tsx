@@ -6,15 +6,14 @@ function Nav() {
       <div>
         <a href="/">
           <div className="">
+            Shivek Khurana (formerly Krim Labs)
             <img
               src={'/img/logo.svg'}
               alt="Krim Labs Logo Purple"
-              width={80}
-              height={23.15}
+              className="h-4"
             />
           </div>
         </a>
-        <div className="text-gray-500 text-sm">{`kr-eee-mm`}</div>
       </div>
     </div>
   );
