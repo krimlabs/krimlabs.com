@@ -157,7 +157,7 @@ We are happy with the impact we made, but also realize that our relief work is p
 # Going forward
 We are working to continue our efforts and have decided to focus all attention on a community of 500 families.
 
-We are also working with two other NGOs that deal with metal health issues to streamline their efforts using our processes.
+We are also working with two other NGOs that deal with mental health issues to streamline their efforts using our processes.
 
 ---
 Feel free to send any questions, or thoughts on this article on twitter @shivek_khurana.

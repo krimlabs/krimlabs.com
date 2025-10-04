@@ -37,7 +37,7 @@ Enter off.ice -- Share an office with 6 other remote workers, everything managed
 ## Longform Notes
 *Problem*
 
-Most notes app are desingned to take notes, but not publish them. This leads to two sets of tools, 
+Most notes app are designed to take notes, but not publish them. This leads to two sets of tools, 
 first set helps you think (Notion, Google Docs etc) and the second helps you publish (Wordpress, Ghost).
 
 *Solution*
@@ -50,10 +50,10 @@ Has a RICH text editor that outputs an open text spec. like Markdown or Org.
 Packing for trips is a tricky affair. One way that I've resorted to in the past is to make packing list on Excel and then put all the stuff in my bag. But still, my packing is not efficient because I cannot forsee the territory I'm visiting. For example, as an Indian visiting Japan, I didn't know how harsh the rains can be.z
 
 *Solution*
-An app that takes your desitnation, home, and the duration of your trip and generates a packing list. It also suggests what clothes to put on which day and reminds you to get your laundry done.
+An app that takes your destination, home, and the duration of your trip and generates a packing list. It also suggests what clothes to put on which day and reminds you to get your laundry done.
 
 
-## Serverless Bazaaar
+## Serverless Bazaar
 *Problem*
 
 Serverless are very well suited to certain use cases like image compression, pdf generation, putting items on a task queue etc, but writing serverless functions from scratch can be time consuming.

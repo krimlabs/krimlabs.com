@@ -58,7 +58,7 @@ But the available analytics solutions are not upto the mark:
 *Problem*
 
 "I'm a spinach farmer" can also be expressed as "I teach the Earth to speak Spinach instead of Grass".
-Poetic creativty is only a matter of inputs. It's hard to absorb large amounts of inspiration and summon it at will.
+Poetic creativity is only a matter of inputs. It's hard to absorb large amounts of inspiration and summon it at will.
 
 *Solution*
 

@@ -17,7 +17,7 @@ author: shivekkhurana
 
 Cards UI are the notoriously flexible building blocks of every modern application. Their forgiving nature allows us to go wrong and make some mistakes that could have been avoided.
 
-I didn't realise it until I made those mistakes and referred to Google for ideas. Here's my goto list of resources:
+I didn't realize it until I made those mistakes and referred to Google for ideas. Here's my goto list of resources:
 
 1. [Simple Design Tips for Crafting Better UI Cards](https://uxplanet.org/simple-design-tips-for-crafting-better-ui-cards-19c1ac31a44e) by [Nick Babich](https://medium.com/@101)
 2. [Ultimate guide for designing UI cards](https://uxplanet.org/ultimate-guide-for-designing-ui-cards-59488a91b44f) by [Vikalp Kaushik](https://vikalpkaushik99.medium.com/)

@@ -11,7 +11,7 @@ slug: block-chain-is-like-a-transistor
 
 There was a time when every government and university had their personal main frame computers. It was extremely expensive to own and maintain one. When geeks had to pay for time bound terminal access. The connections were subjected to the tyranny of the administrator.
 
-The knowledge of it’s operation was limited to a handful of individuals, and access was able only to government personnels and high profile researchers.
+The knowledge of its operation was limited to a handful of individuals, and access was able only to government personnel and high profile researchers.
 
 Then came the transistor and the microprocessor revolution. Along came companies like Intel and AMD. And then the fastest growth mankind had ever witnessed.
 
@@ -19,7 +19,7 @@ Then came the transistor and the microprocessor revolution. Along came companies
 
 But the main frames still exist. They are called banks now. Every government has a personal one. It is extremely expensive to own and maintain one. Individuals have to pay for tightly regulated bank access. And the financial services are subject to the tyranny of the lobbyists and the government.
 
-The knowledge of it’s operation is limited to a handful of groups and companies, accessible only by high net-worth and high power individuals.
+The knowledge of its operation is limited to a handful of groups and companies, accessible only by high net-worth and high power individuals.
 
 We are currently witnessing the Blockchain revolution. Along with projects like Bitcoin and Ethereum.
 

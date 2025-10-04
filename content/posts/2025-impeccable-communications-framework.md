@@ -69,7 +69,7 @@ What if one partner wants clarity about the relationship, and the other says, â€
 ![Pair of Koi fish reconciling paths](/img/content/posts/impeccable-communications-cover.png)
 _Pair of Koi fish reconciling paths_
 
-I visualise this as a pair of Koi fish charting the never ending cosmic sea. They move on their own, in their own direction, but their mutual attraction helps reconcile paths often. 
+I visualize this as a pair of Koi fish charting the never ending cosmic sea. They move on their own, in their own direction, but their mutual attraction helps reconcile paths often. 
 
 ## The Power of Vulnerability
 
